@@ -2,7 +2,7 @@
 .carousel-ratio {
   position: relative;
   width: 100%;
-  aspect-ratio: 20/6; /* <-- probá este tamaño (más fino y responsive) */
+  aspect-ratio: 20/6; /* tamaño de las imagenes */
   overflow: hidden;
 }
 
