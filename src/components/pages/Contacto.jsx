@@ -67,28 +67,30 @@ const Contacto = () => {
                 />
               </FloatingLabel>
             </Col>
-            <Col xs={10} md={5}>
+            <Col
+              xs={10}
+              md={5}
+              className="d-flex flex-column"
+            >
               {/* Mensaje (Textarea) */}
-              <div className="textarea" >
-                <FloatingLabel
-                  controlId="floatingTextareaMensaje"
-                  label="Escribe tu mensaje o consulta"
-    style={{ height: '150px' }}
-                >
-                  <Form.Control
-                    as="textarea"
-                    placeholder="Escribe tu mensaje o consulta"
-                    minLength={10}
-                    maxLength={500}
-                    
-                    required
-                  />
-                </FloatingLabel>
-              </div>
+              <FloatingLabel
+                controlId="floatingTextareaMensaje"
+                label="Escribe tu mensaje o consulta"
+                className="mb-3"
+              >
+                <Form.Control
+                  as="textarea"
+                  placeholder="Escribe tu mensaje o consulta"
+                  minLength={10}
+                  maxLength={500}
+                  className="textarea-mensaje"
+                  required
+                />
+              </FloatingLabel>
 
               {/* Botón de Enviar */}
-              <div className="d-grid gap-2">
-                <Button variant="primary" type="submit" size="lg">
+              <div className="d-grid">
+                <Button variant="primary" type="submit" className="py-3">
                   Enviar Consulta
                 </Button>
               </div>
