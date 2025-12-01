@@ -12,7 +12,7 @@ const Inicio = () => {
         data-bs-interval="3000"
       >
         {/* BOTÓN FIJO, INDEPENDIENTE DE LAS FOTOS */}
-        <button className="btn btn-warning position-absolute boton-alquilar">
+        <button className="btn btn-outline-light  position-absolute boton-alquilar">
           Alquilá ya
         </button>
 
@@ -22,10 +22,10 @@ const Inicio = () => {
               <img
                 src="img/banderin.jpg"
                 className="w-100 h-100 object-fit-cover"
-                alt="..."
+                alt="cancha con banderin"
               />
               <div className="carousel-caption d-none d-md-block page m=0">
-                <div className="bg-dark bg-opacity-50 p-3 rounded w-50 mx-auto">
+                <div className="bg-dark bg-opacity-50 p-3 rounded  mx-auto caja-texto">
                   <h1 className="display-7 fw-bold">¡Vení estrenala!</h1>
                   <p className="lead fw-normal">
                     Ya esta habilitada la cancha con alfombra de agua
@@ -38,18 +38,17 @@ const Inicio = () => {
           <div className="carousel-item">
             <div className="carousel-ratio">
               <img
-                src="img/luces estadio.webp"
-                className="w-100 h-100 object-fit-cover"
-                alt="..."
+                src="img/luces2.jpg"
+                className="w-100  object-fit-cover"
+                alt="cancha iluminada"
               />
               <div className="carousel-caption d-none d-md-block">
-                <div className="bg-dark bg-opacity-50 p-3 rounded w-50 mx-auto">
+                <div className="bg-dark bg-opacity-50 p-3 rounded  mx-auto caja-texto">
                   <h1 className="display-7 fw-bold">
                     ¡Las Mejores Instalaciones!
                   </h1>
                   <p className="lead fw-normal">
-                    Calidad garantizada: iluminación profesional y césped de
-                    primera.
+                    Iluminación profesional y césped de primera.
                   </p>
                 </div>
               </div>
@@ -60,11 +59,11 @@ const Inicio = () => {
             <div className="carousel-ratio">
               <img
                 src="img/pelota red.jpg"
-                className="w-100 h-100 object-fit-cover"
-                alt="..."
+                className="w-100  object-fit-cover"
+                alt="pelota en fonde de red"
               />
               <div className="carousel-caption d-none d-md-block">
-                <div className="bg-dark bg-opacity-50 p-3 rounded w-50 mx-auto">
+                <div className="bg-dark bg-opacity-50 p-3 rounded  mx-auto caja-texto">
                   <h1 className="display-7 fw-bold">¡Tu Cancha te Espera!</h1>
                   <p className="lead fw-normal">
                     Reservá tu cancha de fútbol 5 al instante.
@@ -101,20 +100,22 @@ const Inicio = () => {
         <h2 className="text-center mb-4">La Indumentaria que Necesitas</h2>
 
         <div className="row row-cols-1 row-cols-md-3 g-4">
-          
           {/* CARD 1 */}
           <div className="col">
             <div className="card text-white border-0 position-relative">
               <img
                 src="./img/mujer.avif"
-                className="card-img card-img-altura"
+                className="card-img card-img-altura img-mujer-posicion"
                 alt="mujer con ropa de deporte"
               />
 
               <div className="card-img-overlay d-flex flex-column justify-content-end bg-dark bg-opacity-25 text-center">
-                <h5 className="fw-bold">Indumentaria para ellas</h5>
+                <h5 className="fw-bold mb-5">Indumentaria para ellas</h5>
                 <p>Todos los modelos que buscas de las mejores marcas.</p>
-                <a href="#" className="btn btn-outline-light w-50 mx-auto">
+                <a
+                  href="#"
+                  className="btn btn-outline-light boton-catalogo w-50 mx-auto"
+                >
                   Ver Catálogo
                 </a>
               </div>
@@ -131,9 +132,12 @@ const Inicio = () => {
               />
 
               <div className="card-img-overlay d-flex flex-column justify-content-end bg-dark bg-opacity-25 text-center">
-                <h5 className="fw-bold">Indumentaria para el hombre</h5>
+                <h5 className="fw-bold mb-5">Indumentaria para el hombre</h5>
                 <p>Camisetas de los mejores clubes y selecciones.</p>
-                <a href="#" className="btn btn-outline-light w-50 mx-auto">
+                <a
+                  href="#"
+                  className="btn btn-outline-light boton-catalogo w-50 mx-auto"
+                >
                   Ver Catálogo
                 </a>
               </div>
@@ -150,9 +154,12 @@ const Inicio = () => {
               />
 
               <div className="card-img-overlay d-flex flex-column justify-content-end bg-dark bg-opacity-25 text-center">
-                <h5 className="fw-bold">Todo para los niños</h5>
+                <h5 className="fw-bold mb-5">Todo para los niños</h5>
                 <p>Las mejores pilchas para los futuros campeones.</p>
-                <a href="#" className="btn btn-outline-light w-50 mx-auto">
+                <a
+                  href="#"
+                  className="btn btn-outline-light boton-catalogo w-50 mx-auto"
+                >
                   Ver Catálogo
                 </a>
               </div>
