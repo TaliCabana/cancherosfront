@@ -4,14 +4,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const Inicio = () => {
   return (
     <>
-      {/* carousel */}
+      {/* carousel alquiler de canchas */}
       <div
         id="carouselCanchas"
         className="carousel slide position-relative"
         data-bs-ride="carousel"
         data-bs-interval="3000"
       >
-        {/* BOTÓN FIJO, INDEPENDIENTE DE LAS FOTOS */}
+        
         <button className="btn btn-outline-light  position-absolute boton-alquilar">
           Alquilá ya
         </button>
@@ -107,7 +107,7 @@ const Inicio = () => {
     <div className="slide"><img src="../img/publicidades/adidas.jpg" className="publi5" alt="Publicidad 5" /></div>
     <div className="slide"><img src="../img/publicidades/messi.jpg" className="publi6" alt="Publicidad 6" /></div>
 
-    {/* Repetimos para loop continuo */}
+    {/* Para que se mueva en forma continua*/}
     <div className="slide"><img src="../img/publicidades/nike1.jpg" className="publi1" alt="Publicidad 1" /></div>
     <div className="slide"><img src="../img/publicidades/puma.jpg" className="publi2" alt="Publicidad 2" /></div>
     <div className="slide"><img src="../img/publicidades/dibu.jpg" className="publi3" alt="Publicidad 3" /></div>
@@ -128,6 +128,7 @@ const Inicio = () => {
         <h2 className="text-center mb-4">La Indumentaria que Necesitas</h2>
 
         <div className="row row-cols-1 row-cols-md-3 g-4">
+
           {/* CARD 1 */}
           <div className="col">
             <div className="card text-white border-0 position-relative">

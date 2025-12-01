@@ -1,4 +1,4 @@
-/* ================= CARRUSEL ================= */
+/* Carrusel alquiler canchas */
 
 /* Mantener proporción de las imágenes */
 .carousel-ratio {
@@ -23,12 +23,12 @@
   border-radius: 5px;
 }
 
-/* Ajuste posición de imagen específica */
+/* Ajuste posición de imagen  */
 .img-mujer-posicion {
   object-position: center 30%;
 }
 
-/* Botones del carrusel */
+
 /* BOTÓN "ALQUILÁ YA" */
 .boton-alquilar {
   position: absolute;
@@ -39,22 +39,22 @@
   padding: 8px 20px;
   font-size: 1.1rem;
   font-weight: 600;
-  color: white; /* texto blanco normal */
+  color: white; 
   border: 2px solid white;
   background-color:transparent;
   transition: all 0.3s ease;
 }
 
-/* HOVER */
+
 .boton-alquilar:hover {
-  background-color: rgba(255, 255, 255, 0.25); /* fondo más claro */
-  color: black; /* texto negro en hover */
+  background-color: rgba(255, 255, 255, 0.25); 
+  color: black; 
   border-color: white;
 }
 
-/* ================= CARDS ================= */
+/* cards */
 
-/* Imagen de la card */
+
 .card-img-altura {
   width: 100%;
   object-fit: cover;
@@ -66,14 +66,14 @@
 .card .card-img-overlay {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* texto arriba, boton abajo */
+  justify-content: space-between; 
   align-items: center;
   text-align: center;
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.25);
 }
 
-/* Wrapper de texto */
+
 .card .contenido-texto {
   display: flex;
   flex-direction: column;
@@ -96,23 +96,24 @@
 }
 
 /* carrusel publicidad */
+
 .slider-publicidad {
   overflow: hidden;
   width: 100%;
-  height: 120px; /* altura más baja */
+  height: 120px; /* altura del carrusel */
   position: relative;
 }
 
 .slider-publicidad .slider-track {
-  display: flex; /* usar flex en lugar de inline-block */
+  display: flex; 
   flex-wrap: nowrap;
   animation: scrollLeft 20s linear infinite;
 }
 
 .slider-publicidad .slide {
-  flex: 0 0 auto; /* evita que se reduzca tamaño */
+  flex: 0 0 auto; 
   width: 200px;
-  height: 120px; /* misma altura que contenedor */
+  height: 120px; 
   margin-right: 0px;
 }
 
@@ -123,6 +124,7 @@
 }
 
 /* Posicionamiento individual de imágenes */
+
 .slider-publicidad .publi1 { object-position: center 20%; }
 .slider-publicidad .publi2 { object-position: center 50%; }
 .slider-publicidad .publi3 { object-position: center 70%; }
@@ -137,32 +139,28 @@
 
 
 
-/* ================= BOTONES ================= */
 
-/* Botón */
-/* BOTÓN CARD - MISMO ESTILO QUE "Alquilá ya" */
-/* BOTÓN CARD - estilo "Alquilá ya" */
 .card .boton-catalogo {
   margin-top: 10px;
   width: 60%;
   max-width: 180px;
   padding: 6px 14px;
   font-size: 0.9rem;
-  color: white; /* texto normal blanco */
-  border: 2px solid white; /* borde blanco */
-  background-color: rgba(255, 255, 255, 0.1); /* fondo transparente */
+  color: white; 
+  border: 2px solid white; 
+  background-color: rgba(255, 255, 255, 0.1); 
   transition: all 0.3s ease;
 }
 
 .card .boton-catalogo:hover {
-  background-color: rgba(255, 255, 255, 0.25); /* fondo más claro */
-  color: black; /* texto negro en hover */
-  border-color: white; /* borde sigue blanco */
+  background-color: rgba(255, 255, 255, 0.25); 
+  color: black; 
+  border-color: white; 
 }
 
 
 
-/* ================= MEDIA QUERIES ================= */
+/*MEDIA QUERIES */
 
 /* MÓVIL */
 @media (max-width: 767px) {
@@ -179,13 +177,14 @@
     width: 70%;
     font-size: 0.8rem;
   }
+
   /* Contenido de texto más arriba */
   .card .contenido-texto {
     flex-grow: 0;
     gap: 5px;
   }
 
-  /* Botón al fondo */
+  /* Botón en la parte de abajo */
   .card .boton-catalogo {
     margin-top: auto;
     width: 70%;
@@ -246,9 +245,9 @@
     gap: 5px;
   }
 
-  /* Botón abajo */
+  
   .card .boton-catalogo {
-    margin-top: auto; /* fuerza el botón al fondo */
+    margin-top: auto; 
     width: 60%;
     font-size: 0.9rem;
   }
@@ -258,7 +257,7 @@
     height: 280px; 
   }
 
-  /* Reducir espacio entre cards sin romper fila */
+  /* Reducir espacio entre cards  */
   .row.row-cols-md-3 > .col {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
@@ -270,13 +269,13 @@
 @media (min-width: 992px) {
   /* Títulos y párrafos */
   .card .contenido-texto {
-    flex-grow: 0; /* no empuja el botón */
+    flex-grow: 0; 
     gap: 5px;
   }
 
-  /* Botón al fondo */
+  
   .card .boton-catalogo {
-    margin-top: auto; /* fuerza el botón al fondo */
+    margin-top: auto; 
     width: 50%;
     font-size: 1rem;
   }
@@ -294,7 +293,7 @@
 /* BOTÓN ALQUILÁ YA - ajuste móvil */
 @media (max-width: 767px) {
   .boton-alquilar {
-    top: 90%; /* bajalo un poco más para que se vea centrado */
+    top: 90%; 
     right: 50%;
     transform: translate(50%, -50%); /* centrado horizontal */
     font-size: 1rem; /* opcional, reducir tamaño en móvil */
