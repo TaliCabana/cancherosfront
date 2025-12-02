@@ -5,7 +5,7 @@ const Inicio = () => {
     <>
       <div
         id="carouselCanchas"
-        className="carousel slide position-relative"
+        className="carousel slide position-relative "
         data-bs-ride="carousel"
         data-bs-interval="3000"
       >
@@ -15,7 +15,7 @@ const Inicio = () => {
           Alquilá ya
         </button>
 
-        <div className="carousel-inner">
+        <div className="carousel-inner ">
           
           <div className="carousel-item active">
             <div className="carousel-ratio">

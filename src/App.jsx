@@ -15,7 +15,7 @@ function App() {
           <Route path="/" element={<Inicio />} />
           <Route path="*" element={<Error404 />} />
         </Routes>
-      </main>
+       </main>
       {<Footer></Footer>}
     </BrowserRouter>
   );

@@ -124,13 +124,13 @@ border-radius: 50%;
 
 /* --- Botón Iniciar Sesión --- */
 .btn-login {
-    background-color: rgba(255, 255, 255, 0.15); /* Transparente por defecto */
+    background-color: rgba(112, 39, 106, 0.15); /* Transparente por defecto */
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(4px);
 }
 .btn-login:hover {
-    background-color: #355159; /* AZUL PETRÓLEO */
+    background-color: #000000; /* AZUL PETRÓLEO */
     color: white;
     border-color: #005F6B;
     transform: translateY(-2px);
