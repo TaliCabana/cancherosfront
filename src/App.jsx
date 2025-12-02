@@ -6,17 +6,28 @@ import Inicio from "./components/pages/Inicio";
 import "./styles/inicio.css";
 import Login from "./components/pages/Login";
 import Nosotros from "./components/pages/Nosotros";
+import CatalogoElla from "./components/pages/productos/CatalogoElla";
+import CatalogoHombre from "./components/pages/productos/CatalogoHombre";
+import CatalogoNinios from "./components/pages/productos/CatalogoNinios";
 
 function App() {
   return (
     <BrowserRouter>
       <Menu></Menu>
-         
 
       <main>
         <Routes>
           <Route path="/" element={<Inicio />} />
           <Route path="*" element={<Error404 />} />
+          <Route path="/productos/catalogoElla" element={<CatalogoElla />} />
+          <Route
+            path="/productos/catalogoHombre"
+            element={<CatalogoHombre />}
+          />
+          <Route
+            path="/productos/catalogoNinios"
+            element={<CatalogoNinios />}
+          />
         </Routes>
       </main>
       {<Footer></Footer>}
