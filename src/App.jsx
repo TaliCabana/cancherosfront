@@ -9,14 +9,14 @@ import Nosotros from "./components/pages/Nosotros"
 function App() {
   return (
     <BrowserRouter>
-      {<Menu></Menu>}
       <main>
-        <Routes>
+        <Menu/>
+         <Routes>
           <Route path="/" element={<Inicio />} />
           <Route path="*" element={<Error404 />} />
         </Routes>
        </main>
-      {<Footer></Footer>}
+      <Footer/>
     </BrowserRouter>
   );
 }
