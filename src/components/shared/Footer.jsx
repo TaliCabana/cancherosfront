@@ -1,13 +1,13 @@
-import React from "react";
 
-const footer = () => {
+
+const Footer = () => {
+  
+
   return (
-    <div>
-      <footer className="bg-dark text-light text-center py-3">
-        <p>&copy;Todos los derechos reservados.</p>
-      </footer>
+    <div className="text-center my-3">
+      Todos los derechos reservados © 2025 - Cancheros
     </div>
   );
 };
 
-export default footer;
+export default Footer;
