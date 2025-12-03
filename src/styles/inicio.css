@@ -1,7 +1,4 @@
-/* El carrusel mantiene una relación de aspecto (alto proporcional al ancho) */
-body,html{
-  border: 2px solid red;
-}
+
 
 #carouselCanchas{
   width: 100%;
