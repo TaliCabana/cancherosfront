@@ -16,8 +16,9 @@ import Administrador from "./components/pages/administrador";
 function App() {
   return (
     <BrowserRouter>
+    <Menu/>
       <main>
-        <Menu/>
+        
          <Routes>
           <Route path="/" element={<Inicio />} />
           <Route path="*" element={<Error404 />} />
