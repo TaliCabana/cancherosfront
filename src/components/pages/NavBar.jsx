@@ -5,7 +5,7 @@ const NavBar = () => {
     return (
 
     <> 
-     <nav className="navbar ">
+     <nav className="navbar navbar-floating">
         <div className="logo-video-container">
            <video className="logo-video" autoplay loop muted playsinline>
                 <source  src="/dibuSuperSayayinCancherosreRePower.mp4" type="video/mp4" autoPlay muted loop playsinline></source>

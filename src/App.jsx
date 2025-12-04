@@ -17,10 +17,9 @@ import Administrador from "./components/pages/administrador";
 function App() {
   return (
     <BrowserRouter>
-      <Menu></Menu>
-
       <main>
-        <Routes>
+        <Menu/>
+         <Routes>
           <Route path="/" element={<Inicio />} />
           <Route path="*" element={<Error404 />} />
           <Route path="/productos/catalogoElla" element={<CatalogoElla />} />
@@ -36,7 +35,7 @@ function App() {
           <Route path="/admin" element={<Administrador />} />
         </Routes>
        </main>
-      {<Footer></Footer>}
+      <Footer/>
     </BrowserRouter>
   );
 }

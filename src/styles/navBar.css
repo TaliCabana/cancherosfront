@@ -23,10 +23,12 @@
             align-items: center;
             padding: 0 50px; /* Espacio a los costados */
             align-items: center;
-            background-color: transparent; /* Fondo transparente pedido */
+            /* Fondo transparente pedido */
             z-index: 1000; /* Asegura que esté por encima de todo */
         }
 
+        
+        
         /* --- IZQUIERDA: CONTENEDOR DE VIDEO (LOGO) --- */
    .logo-video-container {
     width: 80px;
@@ -149,6 +151,7 @@ border-radius: 50%;
     transform: translateY(-2px);
 }
 
+
 /* Responsive */
 @media (max-width: 768px) {
     .navbar {
@@ -164,3 +167,87 @@ border-radius: 50%;
         font-size: 12px;
     }
 }
+
+
+  .navbar-floating {
+          position: absolute; /* CLAVE: Saca el navbar del flujo normal */
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 80px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0 40px;
+          z-index: 1000; /* Asegura que esté sobre la imagen */
+          background-color: transparent ;
+        }
+
+        .navbar-logo {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+        }
+
+        .dibu-icon {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          border: 2px solid #4ade80;
+          object-fit: cover;
+        }
+
+        .brand-text {
+          color: #4ade80;
+          font-size: 1.5rem;
+          font-weight: 800;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          font-family: sans-serif;
+        }
+
+        .navbar-actions {
+          display: flex;
+          gap: 15px;
+        }
+
+        .btn-link {
+          background: transparent;
+          border: none;
+          color: #ffffff;
+          font-weight: 600;
+          cursor: pointer;
+          font-size: 1rem;
+          padding: 10px 15px;
+          transition: opacity 0.3s;
+        }
+
+        .btn-link:hover {
+          text-decoration: underline;
+          opacity: 0.8;
+        }
+
+        .btn-reservar {
+          background-color: transparent;
+          color: #fbbf24;
+          border: 2px solid #fbbf24;
+          padding: 8px 20px;
+          border-radius: 5px;
+          font-weight: bold;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .btn-reservar:hover {
+          background-color: #fbbf24;
+          color: #000;
+        }
+
+        @media (max-width: 768px) {
+          .navbar-floating {
+            padding: 0 20px;
+          }
+          .brand-text {
+            display: none;
+          }
+        }
