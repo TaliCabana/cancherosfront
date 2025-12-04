@@ -13,7 +13,6 @@ import CatalogoAccesorio from "./components/pages/productos/CatalogoAccesorio";
 import Administrador from "./components/pages/administrador";
 
 
-
 function App() {
   return (
     <BrowserRouter>
