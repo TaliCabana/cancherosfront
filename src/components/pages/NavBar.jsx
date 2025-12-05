@@ -13,7 +13,7 @@ const NavBar = () => {
             </video>
         </div>
         <div className="nav-buttons">
-            <button className="btn btn-login">Iniciar sesión</button>
+            <button className="btn btn-login">Iniciar</button>
             <button className="btn btn-reserve">Reservar canchas</button>
         </div>
     </nav>
