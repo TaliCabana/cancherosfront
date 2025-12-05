@@ -13,8 +13,10 @@ const ProductModal = ({ show, handleClose, productToEdit, handleSave }) => {
       setValue("description", productToEdit.description);
       setValue("price", productToEdit.price);
       setValue("stock", productToEdit.stock);
+       setValue("category", productToEdit.category || "General");
+      setValue("sizes", productToEdit.sizes || "Único");
     } else {
-      reset({ name: "", description: "", price: "", stock: "", imageUrl: "" });
+      reset({ name: "", description: "", price: "", stock: "", imageUrl: "", category: "General" });
     }
   }, [productToEdit, show, setValue, reset]);
 
@@ -24,7 +26,8 @@ const ProductModal = ({ show, handleClose, productToEdit, handleSave }) => {
     formData.append("description", data.description);
     formData.append("price", data.price);
     formData.append("stock", data.stock);
-
+    formData.append("category", data.category);
+    formData.append("sizes", data.sizes);    
     if (data.image && data.image[0]) {
       formData.append("image", data.image[0]);
     }
@@ -47,6 +50,31 @@ const ProductModal = ({ show, handleClose, productToEdit, handleSave }) => {
             <Form.Label>Descripción</Form.Label>
             <Form.Control as="textarea" rows={2} {...register("description")} />
           </Form.Group>
+
+                    <div className="row">
+            <div className="col-6">
+              <Form.Group className="mb-3">
+                <Form.Label>Categoría</Form.Label>
+                <Form.Select {...register("category", { required: true })}>
+                  <option value="General">Seleccionar...</option>
+                  <option value="Hombre">Hombre</option>
+                  <option value="Mujer">Mujer</option>
+                  <option value="Ninios">Niños</option>
+                  <option value="Accesorios">Accesorios</option>
+                </Form.Select>
+              </Form.Group>
+            </div>
+            <div className="col-6">
+              <Form.Group className="mb-3">
+                <Form.Label>Talles (Ej: S, M, L)</Form.Label>
+                <Form.Control 
+                  type="text" 
+                  placeholder="S, M, L, XL" 
+                  {...register("sizes")} 
+                />
+              </Form.Group>
+            </div>
+          </div>
 
           <div className="row">
             <div className="col-6">
