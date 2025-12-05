@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-
+const SERVER_URL = import.meta.env.VITE_API_URL 
+  ? import.meta.env.VITE_API_URL.replace('/api', '') 
+  : "http://localhost:4000";
 const ProductModal = ({ show, handleClose, productToEdit, handleSave }) => {
   const { register, handleSubmit, reset, setValue } = useForm();
 
@@ -11,16 +13,24 @@ const ProductModal = ({ show, handleClose, productToEdit, handleSave }) => {
       setValue("description", productToEdit.description);
       setValue("price", productToEdit.price);
       setValue("stock", productToEdit.stock);
-      setValue("imageUrl", productToEdit.imageUrl);
     } else {
       reset({ name: "", description: "", price: "", stock: "", imageUrl: "" });
     }
   }, [productToEdit, show, setValue, reset]);
 
   const onSubmit = (data) => {
-    handleSave(data);
-  };
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("description", data.description);
+    formData.append("price", data.price);
+    formData.append("stock", data.stock);
 
+    if (data.image && data.image[0]) {
+      formData.append("image", data.image[0]);
+    }
+
+    handleSave(formData);
+  };
   return (
     <Modal show={show} onHide={handleClose} backdrop="static" centered>
       <Modal.Header closeButton>
@@ -54,8 +64,30 @@ const ProductModal = ({ show, handleClose, productToEdit, handleSave }) => {
           </div>
 
           <Form.Group className="mb-3">
-            <Form.Label>URL Imagen</Form.Label>
-            <Form.Control type="text" {...register("imageUrl")} placeholder="https://..." />
+            <Form.Label>Imagen del Producto</Form.Label>
+            
+            {productToEdit && productToEdit.imageUrl && (
+               <div 
+                  className="mb-3 text-center p-2 border rounded" 
+                  style={{ backgroundColor: "rgba(255, 255, 255, 0.05)", borderColor: "#444" }}
+                >
+                <p className="small mb-1" style={{ color: "white", fontWeight: "bold" }}>Imagen Actual:</p>
+                <img 
+                  src={`${SERVER_URL}${productToEdit.imageUrl}`} 
+                  alt="Previsualización" 
+                  style={{ maxHeight: "150px", objectFit: "contain", borderRadius: "5px" }}
+                />
+              </div>
+            )}
+
+            <Form.Control 
+              type="file" 
+              accept="image/*" 
+              {...register("image")} 
+            />
+            <Form.Text className="text-muted">
+              {productToEdit ? "Sube una imagen solo si quieres cambiar la actual." : "Sube una imagen para el producto."}
+            </Form.Text>
           </Form.Group>
 
           <div className="d-flex justify-content-end gap-2">
@@ -67,5 +99,6 @@ const ProductModal = ({ show, handleClose, productToEdit, handleSave }) => {
     </Modal>
   );
 };
+
 
 export default ProductModal;
