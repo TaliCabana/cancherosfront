@@ -12,27 +12,36 @@
         /* =========================================
            NAVBAR TRANSPARENTE
            ========================================= */
-        .navbar {
-            position: absolute; /* CLAVE: Para que flote sobre la imagen */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100px; /* Altura suficiente para el logo/video */
-            display: flex;
-            justify-content: space-between; /* Extremo izq y extremo der */
-            align-items: center;
-            padding: 0 50px; /* Espacio a los costados */
-            align-items: center;
-            /* Fondo transparente pedido */
-            z-index: 1000; /* Asegura que esté por encima de todo */
-        }
+ .navbar {
+  display: flex;
+  justify-content: space-between; /* Separa izq y der al máximo */
+  align-items: center;
+  padding: 0.8rem 1rem;
+  
+  width: 100%;
+  position: fixed; /* O sticky */
+  top: 0;
+  z-index: 1000;
+
+  /* ... tus otras propiedades (display, padding, fixed, etc.) ... */
+  
+  /* Verde Petróleo estilo "Cancha Nocturna" */
+  background-color: #0f3d3e; 
+  
+  /* Sombra suave para que se separe del fondo */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  
+}
 
         
         
         /* --- IZQUIERDA: CONTENEDOR DE VIDEO (LOGO) --- */
    .logo-video-container {
-    width: 80px;
-    height: 80px;
+    display: flex;
+    justify-content: center ;
+    align-items: center;
+    width: 60px;
+    height: auto;
     margin-left: 5px;
     position: relative; /* Necesario para los elementos absolutos de la llama */
     display: flex;
@@ -44,6 +53,12 @@
     
     /* Sombra base suave */
     box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+}
+
+.brand-container {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Espacio entre el video y el botón Inicio */
 }
 
 /* EFECTO DE LLAMA GIRATORIA (CAPA EXTERIOR) */
@@ -99,7 +114,6 @@ border-radius: 50%;
 .logo-video {
     width: 100%;
     height: 100%;
-    margin-left: 2px;
     object-fit: cover;
     /* Importante: Redondeamos el video aquí porque quitamos el overflow del padre */
     border-radius: 50%;
@@ -126,6 +140,33 @@ border-radius: 50%;
     transition: all 0.3s ease;
 }
 
+/* --- EL BOTÓN INICIO (No rectangular) --- */
+.btn-inicio-oval {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0); /* Fuente blanca solicitada */
+  font-family: 'Montserrat', sans-serif; /* Tu fuente */
+  font-weight: 600;
+  font-size: 0.9rem;
+  
+  /* Forma no rectangular (Píldora) */
+  background-color: rgba(255, 255, 255, 0.1); /* Fondo sutil semitransparente */
+  padding: 8px 20px;
+  border-radius: 50px; /* Esto lo hace redondo en los bordes */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Borde fino elegante */
+  
+ /* --- AQUÍ LA MAGIA DEL GIF --- */
+  background-image: url('/subrayadoRojoFuegoParaInicio.gif'); /* Asegúrate de que la ruta sea correcta */
+  background-repeat: no-repeat;
+  background-position: center bottom; /* Lo pegamos abajo para que parezca subrayado */
+  background-size: 100% 60%; /* Ancho 100%, Alto 60% (ajusta este % para que el fuego se vea más alto o bajo) */
+  
+  /* TRUCO PRO: Si el navbar es oscuro, esto elimina el negro del GIF */
+  background-color: transparent; 
+  /* Si el negro del GIF se ve feo sobre tu botón, prueba descomentar esto: */
+  /* mix-blend-mode: screen; */ 
+  
+  transition: all 0.3s ease;
+}
 /* --- Botón Iniciar Sesión --- */
 .btn-login {
     background-color: rgba(112, 39, 106, 0.15); /* Transparente por defecto */
@@ -137,7 +178,7 @@ border-radius: 50%;
     background-color: #000000; /* AZUL PETRÓLEO */
     color: white;
     border-color: #005F6B;
-    transform: translateY(-2px);
+    transform: scale(1.05);
 }
 
 /* --- Botón Reservar --- */
@@ -153,7 +194,47 @@ border-radius: 50%;
     transform: translateY(-2px);
 }
 
+/* Efecto al pasar el mouse o tocar */
+.btn-inicio-oval:hover, 
+.btn-inicio-oval:focus {
+  background-color: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05); /* Pequeño zoom */
+  border-color: white;
+}
+/* Estilo visual para "Página Actual" (aprovechando el ARIA) */
+.btn-inicio-oval[aria-current="page"] {
+  background-color: white;
+  color: black; /* Invertimos colores para indicar que estamos aquí */
+  font-weight: bold;
+}
 
+/* Contenedor botones derecha */
+.auth-buttons-container {
+  display: flex;
+  gap: 10px;
+}
+
+/* --- MEDIA QUERIES (Ajustes para Tablet/Desktop) --- */
+@media (min-width: 768px) {
+  .navbar {
+    padding: 1rem 3rem;
+  }
+  
+  .logo-video-container {
+    width: 80px; /* Más grande en PC */
+  }
+
+  .btn-inicio-oval {
+    font-size: 1rem;
+    padding: 10px 25px;
+  }
+}
+
+.logo-link{
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
 /* Responsive */
 @media (max-width: 768px) {
     .navbar {
