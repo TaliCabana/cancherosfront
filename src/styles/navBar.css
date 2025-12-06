@@ -1,77 +1,61 @@
-   * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: #121212;
-        }
-
-        /* =========================================
-           NAVBAR TRANSPARENTE
-           ========================================= */
- .navbar {
-  display: flex;
-  justify-content: space-between; /* Separa izq y der al máximo */
-  align-items: center;
-  padding: 0.8rem 1rem;
-  
-  width: 100%;
-  position: fixed; /* O sticky */
-  top: 0;
-  z-index: 1000;
-
-  /* ... tus otras propiedades (display, padding, fixed, etc.) ... */
-  
-  /* Verde Petróleo estilo "Cancha Nocturna" */
-  background-color: #0f3d3e; 
-  
-  /* Sombra suave para que se separe del fondo */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  
+/* =========================================
+   RESET & BASICS
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', 'Segoe UI', sans-serif;
 }
 
-        
-        
-        /* --- IZQUIERDA: CONTENEDOR DE VIDEO (LOGO) --- */
-   .logo-video-container {
+/* =========================================
+   NAVBAR PRINCIPAL (Mobile First)
+   ========================================= */
+.navbar {
     display: flex;
-    justify-content: center ;
+    justify-content: space-between;
     align-items: center;
-    width: 60px;
-    height: 65px;
-    margin-left: 5px;
-    position: relative; /* Necesario para los elementos absolutos de la llama */
+    padding: 0.5rem 1rem;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    height: 70px; /* Altura controlada para evitar desbordes */
+
+    /* Fondo Verde Petróleo con degradado */
+    background: linear-gradient(90deg, #0f3d3e 0%, #062121 100%);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* =========================================
+   IZQUIERDA: LOGO + INICIO
+   ========================================= */
+.brand-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+}
+
+/* Contenedor del Video (El Dibu) */
+.logo-video-container {
+    width: 50px;       /* Tamaño ideal para móvil */
+    height: 50px;
+    position: relative;
+    border-radius: 50%;
+    background-color: rgb(0, 23, 34);
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50%;
-    background-color: rgb(0,23,34);
-    /* Quitamos overflow: hidden de aquí para que la llama exterior se vea */
-    
-    /* Sombra base suave */
-    box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+    /* Quitamos márgenes extraños */
 }
 
-.brand-container {
-  display: flex;
-  align-items: center;
-  gap: 15px; /* Espacio entre el video y el botón Inicio */
-}
-
-/* EFECTO DE LLAMA GIRATORIA (CAPA EXTERIOR) */
+/* --- ANIMACIÓN DE FUEGO (Ki) --- */
 .logo-video-container::before {
-    content:'';
-    position:absolute;
-    /* Hacemos el anillo un poco más grande que el contene  dor(4px extra por lado)*/
-    top: -4px;
-    left: -4px;
-    right:-4px;
-    bottom:-4px;
-border-radius: 50%;
-    /* El truco del fuego: Un degradado cónico que gira */
+    content: '';
+    position: absolute;
+    top: -3px; left: -3px; right: -3px; bottom: -3px;
+    border-radius: 50%;
     background: conic-gradient(
         transparent, 
         transparent 20%, 
@@ -79,258 +63,118 @@ border-radius: 50%;
         #39FF14 90%, 
         #ffffff 100%
     );
-    
-    /* Animación de giro infinito */
     animation: spin-ki 1.5s linear infinite;
-    
-    /* Filtro blur para que parezca energía/fuego y no una línea dura */
     filter: blur(2px);
-    z-index: -1; /* Se coloca detrás del video */
-    
-}
-
-
-/* EFECTO DE RESPLANDOR (Capa secundaria para más intensidad) */
-.logo-video-container::after {
-    content: '';
-    position: absolute;
-    top: -4px; left: -4px; right: -4px; bottom: -4px;
-    border-radius: 50%;
-    background: conic-gradient(transparent, transparent, #39FF14, transparent);
-    animation: spin-ki 1.5s linear infinite;
-    /* Un pequeño retraso para crear estela */
-    animation-delay: -0.8s; 
-    filter: blur(10px); /* Más borroso para el brillo exterior */
     z-index: -1;
 }
 
-/* Animación de rotación */
+.logo-video-container::after {
+    content: '';
+    position: absolute;
+    top: -3px; left: -3px; right: -3px; bottom: -3px;
+    border-radius: 50%;
+    background: conic-gradient(transparent, transparent, #39FF14, transparent);
+    animation: spin-ki 1.5s linear infinite;
+    animation-delay: -0.8s; 
+    filter: blur(8px);
+    z-index: -1;
+}
+
 @keyframes spin-ki {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
 
-/* ESTILO DEL VIDEO INTERNO */
 .logo-video {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Importante: Redondeamos el video aquí porque quitamos el overflow del padre */
     border-radius: 50%;
-    z-index: 2; /* Aseguramos que el video tape el centro de la animación */
+    z-index: 2;
 }
 
+/* =========================================
+   TEXTO INICIO (Estilo "Sin Botón" con Fuego)
+   ========================================= */
+.btn-inicio-oval {
+    text-decoration: none;
+    /* CORREGIDO: Usamos hex o rgb simple para asegurar blanco */
+    color: #ffffff; 
+    font-weight: 700;
+    font-size: 1rem;
+    
+    /* Quitamos estilos de caja/borde */
+    background: transparent;
+    border: none;
+    padding: 5px 10px;
+    position: relative;
+    
+    /* Configuración del GIF de fuego */
+    background-image: url('/subrayadoRojoFuegoParaInicio.gif');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: 100% 50%; /* Ajuste de altura del fuego */
+    mix-blend-mode: screen; /* Quita el fondo negro del gif */
+}
 
 /* =========================================
-   BOTONES
+   DERECHA: BOTONES LOGIN / REGISTRO
    ========================================= */
-.nav-buttons {
+.auth-buttons-container {
     display: flex;
-    gap: 20px;
+    gap: 8px; /* Menos espacio en móvil */
 }
 
 .btn {
-    padding: 10px 24px;
+    padding: 8px 14px; /* Botones más compactos en móvil */
     border-radius: 30px;
     font-weight: 700;
-    font-size: 14px;
+    font-size: 0.75rem; /* Texto legible pero chico */
     text-transform: uppercase;
     cursor: pointer;
     border: none;
     transition: all 0.3s ease;
+    white-space: nowrap; /* Evita que el texto se parta en 2 líneas */
 }
 
-/* --- EL BOTÓN INICIO (No rectangular) --- */
-.btn-inicio-oval {
-  text-decoration: none;
-  color: rgba(255, 255, 255); /* Fuente blanca solicitada */
-  font-family: 'Montserrat', sans-serif; /* Tu fuente */
-  font-weight: 600;
-  font-size: 0.9rem;
-  
-  /* Forma no rectangular (Píldora) */
-  background-color: rgba(255, 255, 255, 0.1); /* Fondo sutil semitransparente */
-  padding: 8px 20px;
-  border-radius: 50px; /* Esto lo hace redondo en los bordes */
-  border: 1px solid rgba(255, 255, 255, 0.3); /* Borde fino elegante */
-  
- /* --- AQUÍ LA MAGIA DEL GIF --- */
-  background-image: url('/subrayadoRojoFuegoParaInicio.gif'); /* Asegúrate de que la ruta sea correcta */
-  background-repeat: no-repeat;
-  background-position: center bottom; /* Lo pegamos abajo para que parezca subrayado */
-  background-size: 100% 60%; /* Ancho 100%, Alto 60% (ajusta este % para que el fuego se vea más alto o bajo) */
-  
-  /* TRUCO PRO: Si el navbar es oscuro, esto elimina el negro del GIF */
-  background-color: transparent; 
-  /* Si el negro del GIF se ve feo sobre tu botón, prueba descomentar esto: */
-  /* mix-blend-mode: screen; */ 
-  
-  transition: all 0.3s ease;
-}
-/* --- Botón Iniciar Sesión --- */
+/* IMPORTANTE: Usa estas clases en tu JSX en lugar de btn-primary/success */
 .btn-login {
-    background-color: rgba(112, 39, 106, 0.15); /* Transparente por defecto */
+    background-color: rgba(0, 0, 0, 0.4);
     color: white;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(4px);
-}
-.btn-login:hover {
-    background-color: #000000; /* AZUL PETRÓLEO */
-    color: white;
-    border-color: #005F6B;
-    transform: scale(1.05);
+    border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
-/* --- Botón Reservar --- */
 .btn-reserve {
-    background-color: #ffcc00; /* Amarillo original */
+    background-color: #ffcc00;
     color: #121212;
-    box-shadow: 0 4px 15px rgba(255, 204, 0, 0.4);
-}
-.btn-reserve:hover {
-    background-color: #005F6B; /* AZUL PETRÓLEO */
-    color: white; /* Texto blanco para contraste */
-    box-shadow: 0 4px 15px rgba(0, 95, 107, 0.5); /* Sombra a juego */
-    transform: translateY(-2px);
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
 }
 
-/* Efecto al pasar el mouse o tocar */
-.btn-inicio-oval:hover, 
-.btn-inicio-oval:focus {
-  background-color: rgba(255, 255, 255, 0.25);
-  transform: scale(1.05); /* Pequeño zoom */
-  border-color: white;
-}
-/* Estilo visual para "Página Actual" (aprovechando el ARIA) */
-.btn-inicio-oval[aria-current="page"] {
-  background-color: white;
-  color: black; /* Invertimos colores para indicar que estamos aquí */
-  font-weight: bold;
-}
-
-/* Contenedor botones derecha */
-.auth-buttons-container {
-  display: flex;
-  gap: 10px;
-}
-
-/* --- MEDIA QUERIES (Ajustes para Tablet/Desktop) --- */
+/* =========================================
+   MEDIA QUERIES (TABLET & PC)
+   ========================================= */
 @media (min-width: 768px) {
-  .navbar {
-    padding: 1rem 3rem;
-  }
-  
-  .logo-video-container {
-    width: 80px; /* Más grande en PC */
-  }
-
-  .btn-inicio-oval {
-    font-size: 1rem;
-    padding: 10px 25px;
-  }
-}
-
-.logo-link{
-  display: flex;
-  width: 100%;
-  height: 100%;
-}
-/* Responsive */
-@media (max-width: 768px) {
     .navbar {
-        padding: 0 20px;
-        height: 80px;
+        padding: 0.8rem 3rem;
+        height: 90px;
     }
+
     .logo-video-container {
-        width: 60px;
-        height: 60px;
+        width: 70px;
+        height: 70px;
     }
+
+    .btn-inicio-oval {
+        font-size: 1.2rem;
+        padding: 10px 20px;
+    }
+
     .btn {
-        padding: 8px 16px;
-        font-size: 12px;
+        padding: 10px 24px;
+        font-size: 0.9rem;
+    }
+    
+    .auth-buttons-container {
+        gap: 20px;
     }
 }
-
-
-  .navbar-floating {
-          position: absolute; /* CLAVE: Saca el navbar del flujo normal */
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 80px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 0 40px;
-          z-index: 1000; /* Asegura que esté sobre la imagen */
-          background-color: transparent ;
-        }
-
-        .navbar-logo {
-          display: flex;
-          align-items: center;
-          gap: 15px;
-        }
-
-        .dibu-icon {
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          border: 2px solid #4ade80;
-          object-fit: cover;
-        }
-
-        .brand-text {
-          color: #4ade80;
-          font-size: 1.5rem;
-          font-weight: 800;
-          letter-spacing: 1px;
-          text-transform: uppercase;
-          font-family: sans-serif;
-        }
-
-        .navbar-actions {
-          display: flex;
-          gap: 15px;
-        }
-
-        .btn-link {
-          background: transparent;
-          border: none;
-          color: #ffffff;
-          font-weight: 600;
-          cursor: pointer;
-          font-size: 1rem;
-          padding: 10px 15px;
-          transition: opacity 0.3s;
-        }
-
-        .btn-link:hover {
-          text-decoration: underline;
-          opacity: 0.8;
-        }
-
-        .btn-reservar {
-          background-color: transparent;
-          color: #fbbf24;
-          border: 2px solid #fbbf24;
-          padding: 8px 20px;
-          border-radius: 5px;
-          font-weight: bold;
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-
-        .btn-reservar:hover {
-          background-color: #fbbf24;
-          color: #000;
-        }
-
-        @media (max-width: 768px) {
-          .navbar-floating {
-            padding: 0 20px;
-          }
-          .brand-text {
-            display: none;
-          }
-        }
