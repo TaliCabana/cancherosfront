@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Menu from "./components/shared/Menu";
 import Footer from "./components/shared/Footer";
 import Error404 from "./components/pages/Error404";
 import Inicio from "./components/pages/Inicio";
@@ -11,13 +10,14 @@ import CatalogoHombre from "./components/pages/productos/CatalogoHombre";
 import CatalogoNinios from "./components/pages/productos/CatalogoNinios";
 import CatalogoAccesorio from "./components/pages/productos/CatalogoAccesorio";
 import Administrador from "./components/pages/administrador";
+import MenuNavBar from "./components/pages/MenuNavBar";
 
 
 function App() {
   return (
     <BrowserRouter>
       <main>
-        <Menu/>
+        <MenuNavBar/>
          <Routes>
           <Route path="/" element={<Inicio />} />
           <Route path="*" element={<Error404 />} />
