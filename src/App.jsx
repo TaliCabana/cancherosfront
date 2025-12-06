@@ -11,14 +11,16 @@ import CatalogoHombre from "./components/pages/productos/CatalogoHombre";
 import CatalogoNinios from "./components/pages/productos/CatalogoNinios";
 import CatalogoAccesorio from "./components/pages/productos/CatalogoAccesorio";
 import Administrador from "./components/pages/administrador";
+import Contacto from "./components/pages/Contacto"
 import FormularioTurno from "./components/pages/turno/FormularioTurno";
 
 
 function App() {
   return (
     <BrowserRouter>
+    <Menu/>
       <main>
-        <Menu/>
+        
          <Routes>
           <Route path="/" element={<Inicio />} />
           <Route path="*" element={<Error404 />} />
