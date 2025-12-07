@@ -8,7 +8,7 @@ import {
 } from "react-bootstrap";
 import "../../styles/contacto.css";
 import { useForm } from "react-hook-form";
-import Swal from "sweetalert2"
+import Swal from "sweetalert2";
 
 const Contacto = () => {
   const {
@@ -139,17 +139,21 @@ const Contacto = () => {
                   type="tel"
                   placeholder="Teléfono"
                   {...register("telefono", {
-                  required: "El teléfono es obligatorio",
-minLength: {
-  value: 10,
-message: "El número de teléfono debe tener al menos 10 caracteres."},
-maxLength: {
-  value: 17,
-message: "El número de teléfono no puede exceder los 17 caracteres."},
-pattern:{
-  value: telefonoValidado,
-  message: "Solo se permiten caracteres numéricos."
-}
+                    required: "El teléfono es obligatorio",
+                    minLength: {
+                      value: 10,
+                      message:
+                        "El número de teléfono debe tener al menos 10 caracteres.",
+                    },
+                    maxLength: {
+                      value: 17,
+                      message:
+                        "El número de teléfono no puede exceder los 17 caracteres.",
+                    },
+                    pattern: {
+                      value: telefonoValidado,
+                      message: "Solo se permiten caracteres numéricos.",
+                    },
                   })}
                   isInvalid={!!errors.telefono}
                 />
@@ -170,17 +174,20 @@ pattern:{
                   as="textarea"
                   placeholder="Escribe tu mensaje o consulta"
                   {...register("mensaje", {
-required: "El mensaje es obligatorio.",
-                  minLength: {
-                    value: 10,
-                  message: "El texto ingresado debe contener al menos 10 caracteres."},
-maxLength:{
-  value: 500,
-message: "El mensaje es demasiado largo, no puede contener más de 500 caracteres."}
+                    required: "El mensaje es obligatorio.",
+                    minLength: {
+                      value: 10,
+                      message:
+                        "El texto ingresado debe contener al menos 10 caracteres.",
+                    },
+                    maxLength: {
+                      value: 500,
+                      message:
+                        "El mensaje es demasiado largo, no puede contener más de 500 caracteres.",
+                    },
                   })}
-isInvalid={!!errors.mensaje}                
+                  isInvalid={!!errors.mensaje}
                   className="textarea-mensaje"
-                  
                 />
                 <Form.Control.Feedback type="invalid">
                   {errors.mensaje?.message}

@@ -194,7 +194,7 @@ const Inicio = () => {
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
           {/* CARD 1 */}
           <div className="col">
-            <div className="card text-white border-0 position-relative">
+            <div className="card card-catalogo text-white border-0 position-relative">
               <img
                 src="./img/mujer.avif"
                 className="card-img card-img-altura img-mujer-posicion"
@@ -216,7 +216,7 @@ const Inicio = () => {
 
           {/* CARD 2 */}
           <div className="col">
-            <div className="card text-white border-0 position-relative">
+            <div className="card card-catalogo text-white border-0 position-relative">
               <img
                 src="/img/hombre.jpg"
                 className="card-img card-img-altura"
@@ -238,7 +238,7 @@ const Inicio = () => {
 
           {/* CARD 3 */}
           <div className="col">
-            <div className="card text-white border-0 position-relative">
+            <div className="card card-catalogo text-white border-0 position-relative">
               <img
                 src="/img/niños.jpg"
                 className="card-img card-img-altura"
@@ -260,7 +260,7 @@ const Inicio = () => {
 
           {/* CARD 4 */}
           <div className="col">
-            <div className="card text-white border-0 position-relative">
+            <div className="card card-catalogo text-white border-0 position-relative">
               <img
                 src="/img/accesorios3.avif"
                 className="card-img card-img-altura"
