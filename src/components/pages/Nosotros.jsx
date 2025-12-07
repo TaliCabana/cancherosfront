@@ -10,12 +10,12 @@ import { Link } from "react-router-dom";
 const Nosotros = () => {
   return (
     <section id="nosotros" className="container">
-      <h2 className="text-center mt-5 mb-3 mx-3">
+      <h2 className="text-center h2Nosotros mt-5 mb-3 mx-3">
         ⚽ Cancheros: El Punto de Encuentro del Deporte y la Pasión
       </h2>
 
       <p>
-        <Link to="/" className="text-decoration-none fw-bold">
+        <Link to="/" className="text-decoration-none marca fw-bold">
           Cancheros
         </Link>{" "}
         nace con la misión de ser la{" "}
@@ -44,13 +44,13 @@ const Nosotros = () => {
         </li>
       </ul>
 
-      <h2 className="text-center mt-5 mb-3 mx-3">
+      <h2 className="text-center h2Nosotros mt-5 mb-3 mx-3">
         🛍️ Tu Equipo en la Cancha: El E-commerce de Cancheros
       </h2>
 
       <p>
         La experiencia deportiva completa requiere el equipo adecuado. Por eso,{" "}
-        <Link to="/" className="text-decoration-none fw-bold">
+        <Link to="/" className="text-decoration-none marca fw-bold">
           Cancheros
         </Link>{" "}
         extiende su plataforma para convertirse en tu fuente confiable de
@@ -77,7 +77,7 @@ const Nosotros = () => {
       </ul>
 
       <p className="mx-3">
-        <Link to="/" className="text-decoration-none fw-bold">
+        <Link to="/" className="text-decoration-none marca fw-bold">
           Cancheros
         </Link>{" "}
         es la única plataforma que{" "}
