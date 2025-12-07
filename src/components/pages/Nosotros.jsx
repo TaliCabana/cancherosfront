@@ -2,8 +2,11 @@ import { Container, Card, Row, Col, Button } from "react-bootstrap";
 import PaulaCabana from "../../img/PaulaCabana.jpg";
 import MaximilianoGuerrero from "../../img/MaximilianoGuerrero.jpg";
 import IgnacioLedesma from "../../img/IgnacioLedesma.jpg";
+import GermanJimenez from "../../img/GermanJimenez.jpg";
+import JoaquinAlbornoz from "../../img/JoaquinAlbornoz.jpg";
 /* import { Link } from "react-router-dom"; */
-/* import "../../styles/nosotros.css"; */
+import "../../styles/nosotros.css";
+import { Link } from "react-router-dom";
 
 const Nosotros = () => {
   return (
@@ -13,7 +16,9 @@ const Nosotros = () => {
       </h2>
 
       <p>
-        <strong>Cancheros</strong> nace con la misión de ser la{" "}
+        <Link
+        to="/" className="text-decoration-none fw-bold">
+        Cancheros</Link>{" "} nace con la misión de ser la {" "}
         <strong>plataforma integral de referencia</strong> para todos los
         entusiastas del fútbol y el deporte. Entendemos la pasión que mueve a
         millones de personas a disfrutar de este deporte, y por eso,
@@ -43,7 +48,9 @@ const Nosotros = () => {
 
       <p>
         La experiencia deportiva completa requiere el equipo adecuado. Por eso,{" "}
-        <strong>Cancheros</strong> extiende su plataforma para convertirse en tu
+        <Link
+        to="/" className="text-decoration-none fw-bold">
+        Cancheros</Link>{" "} extiende su plataforma para convertirse en tu
         fuente confiable de artículos deportivos de alta calidad.
       </p>
 
@@ -67,7 +74,9 @@ const Nosotros = () => {
       </ul>
 
       <p className="mx-3">
-        <strong>Cancheros</strong> es la única plataforma que{" "}
+        <Link
+        to="/" className="text-decoration-none fw-bold">
+        Cancheros</Link>{" "} es la única plataforma que{" "}
         <strong>
           te conecta con el lugar ideal para jugar y te provee el equipamiento
           para hacerlo
@@ -121,7 +130,7 @@ const Nosotros = () => {
               <Card.Img
                 variant="top"
                 className="imgCardNosotros mt-3"
-/*                 src={GermanGimenez} */
+               src={GermanJimenez} 
                 alt="Germán Jimenez"
               />
               <Card.Body>
@@ -217,7 +226,7 @@ const Nosotros = () => {
               <Card.Img
                 variant="top"
                 className="imgCardNosotros mt-3"
-/*                 src={JoaquinAlbornoz} */
+                src={JoaquinAlbornoz}
                 alt="Joaquín Albornoz"
               />
               <Card.Body>

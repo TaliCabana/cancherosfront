@@ -1,0 +1,9 @@
+.imgCardNosotros {
+  width: 80px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  border-color: var(--color-accent);
+}
