@@ -67,6 +67,14 @@
   box-shadow: 3px 3px 20px var(--verdeExito);
   overflow: hidden;
   margin: 10px;
+  transition: all 0.3s ease;
+}
+
+.card-catalogo:hover {
+  transform: scale(1.15);
+  box-shadow: 3px 3px 20px var(--verdeNeon3);
+  overflow: hidden;
+  box-shadow: 2px 2px 25px var(--verdeNeon);
 }
 
 .card-img-altura {
