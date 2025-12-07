@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 const Nosotros = () => {
   return (
-    <section className="container mx-3">
+    <section id="nosotros" className="container">
       <h2 className="text-center mt-5 mb-3 mx-3">
         ⚽ Cancheros: El Punto de Encuentro del Deporte y la Pasión
       </h2>
