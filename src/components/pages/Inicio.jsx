@@ -189,7 +189,7 @@ const Inicio = () => {
       {/* venta productos */}
 
       <div className="container my-5">
-        <h2 className="text-center mb-4">La Indumentaria que Necesitas</h2>
+        <h2 className="text-center mb-4">La indumentaria que necesitás</h2>
 
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
           {/* CARD 1 */}

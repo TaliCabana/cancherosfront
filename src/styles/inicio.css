@@ -1,3 +1,17 @@
+:root {
+  --rosa: #f78cc7;
+  --magenta: #e60e42;
+  --azulPetroleo: #043b38;
+    --negro: #00090f;
+  --blanco: #ecf5fb;
+  --grisClaro: #57656c;
+  --grisOscuro: #23333b;
+  --ambar: #ffbf00;
+  --verdeNeon: #14FF00;
+  --verdeExito: #2ecc71;
+
+}
+
 .carousel-ratio {
   position: relative;
   width: 100%;
@@ -15,7 +29,7 @@
 .carousel-caption .caja-texto {
   width: 50%;
   padding: 0px;
-  color: white;
+  color: var(--blanco);
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 5px;
 }
@@ -36,21 +50,26 @@
   padding: 8px 20px;
   font-size: 1.1rem;
   font-weight: 600;
-  color: white; 
-  border: 2px solid white;
-  background-color:transparent;
+  color: var(--blanco); 
+  border: 2px solid var(--blanco);
+  box-shadow: 1px 1px 10px var(--rosa);
+background-color: rgba(0, 23, 34, 0.4);
   transition: all 0.3s ease;
 }
 
 
 .boton-alquilar:hover {
-  background-color: rgba(255, 255, 255, 0.25); 
-  color: black; 
-  border-color: white;
+  background-color: var(--azulPetroleo); 
+  color: var(--rosa); 
+  border-color: var(--rosa);
 }
 
 /* cards */
 
+.card{
+    box-shadow: 2px 2px 10px var(--azulPetroleo);
+    border: var(--azulPetroleo);
+}
 
 .card-img-altura {
   width: 100%;
@@ -143,16 +162,17 @@
   max-width: 180px;
   padding: 6px 14px;
   font-size: 0.9rem;
-  color: white; 
-  border: 2px solid white; 
-  background-color: rgba(255, 255, 255, 0.1); 
+    color: var(--blanco); 
+  border: 2px solid var(--blanco);
+  box-shadow: 1px 1px 10px var(--rosa);
+background-color: rgba(0, 23, 34, 0.4);
   transition: all 0.3s ease;
 }
 
 .card .boton-catalogo:hover {
-  background-color: rgba(255, 255, 255, 0.25); 
-  color: black; 
-  border-color: white; 
+  background-color: var(--azulPetroleo); 
+  color: var(--rosa); 
+  border-color: var(--rosa);
 }
 
 

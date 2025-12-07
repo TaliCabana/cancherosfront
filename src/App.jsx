@@ -22,7 +22,8 @@ function App() {
       <main>
         
          <Routes>
-          <Route path="/" element={<Inicio />} />
+ {/*          <Route path="/" element={<Nosotros />} /> */}
+       <Route path="/" element={<Inicio />} /> *
           <Route path="*" element={<Error404 />} />
           <Route path="/productos/catalogoElla" element={<CatalogoElla />} />
           <Route
