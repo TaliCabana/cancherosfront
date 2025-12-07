@@ -1,0 +1,66 @@
+:root {
+  --rosa: #f78cc7;
+  --magenta: #e60e42;
+  --azulPetroleo: #043b38;
+  --negro: #00090f;
+  --blanco: #ecf5fb;
+  --grisClaro: #57656c;
+  --grisOscuro: #23333b;
+  --ambar: #ffbf00;
+  --verdeNeon: #14FF00;
+  --verdeExito: #2ecc71;
+
+}
+
+#nosotros p{
+    text-align: justify;
+}
+
+.cardNosotros {
+  border-color: var(--verdeExito);
+  color: var(--magenta);
+  text-align: center;
+  box-shadow: 5px 5px 10px var(--azulPetroleo);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.imgCardNosotros {
+  width: 80px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  border-color: var(--azulPetroleo);
+}
+
+.cardNosotros:hover {
+  transform: scale(1.15);
+  box-shadow: 3px 3px 20px var(--verdeExito);
+  overflow: hidden;
+}
+
+.nameCardNosotros {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  height: 60%;
+  font-size:medium;
+}
+
+.iconoCard {
+    color: var(--verdeExito);
+  
+  position: relative;
+}
+
+.iconoCard:hover {
+  color: var(--verdeNeon);
+  transition: 600ms;
+  transform: scale(1.5);
+}

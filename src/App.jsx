@@ -37,7 +37,9 @@ function App() {
           <Route path="/turno/formularioTurno" element={<FormularioTurno />} />
           <Route path="/admin" element={<Administrador />} />
         </Routes>
+        
        </main>
+       
       <Footer/>
     </BrowserRouter>
   );
