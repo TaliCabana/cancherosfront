@@ -4,9 +4,9 @@ import MaximilianoGuerrero from "../../img/MaximilianoGuerrero.jpg";
 import IgnacioLedesma from "../../img/IgnacioLedesma.jpg";
 import GermanJimenez from "../../img/GermanJimenez.jpg";
 import JoaquinAlbornoz from "../../img/JoaquinAlbornoz.jpg";
-/* import { Link } from "react-router-dom"; */
 import "../../styles/nosotros.css";
 import { Link } from "react-router-dom";
+
 
 const Nosotros = () => {
   return (
