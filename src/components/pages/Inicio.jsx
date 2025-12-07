@@ -191,13 +191,13 @@ const Inicio = () => {
 
       {/* venta productos */}
 
-      <div className="container my-5">
+      <div className="my-5">
         <h2 className="text-center mb-4">La indumentaria que necesitás</h2>
 
         <Container>
           <Row className="g-3 justify-content-center">
             {/* CARD 1 */}
-            <Col xs={10} md={5} lg={3}>
+            <Col xs={10} md={6} lg={3}>
               <div className="card card-catalogo text-white border-0 position-relative">
                 <img
                   src="./img/mujer.avif"
@@ -219,7 +219,7 @@ const Inicio = () => {
             </Col>
 
             {/* CARD 2 */}
-            <Col xs={10} md={5} lg={3}>
+            <Col xs={10} md={6} lg={3}>
               <div className="card card-catalogo text-white border-0 position-relative">
                 <img
                   src="/img/hombre.jpg"
@@ -241,7 +241,7 @@ const Inicio = () => {
             </Col>
 
             {/* CARD 3 */}
-            <Col xs={10} md={5} lg={3}>
+            <Col xs={10} md={6} lg={3}>
               <div className="card card-catalogo text-white border-0 position-relative">
                 <img
                   src="/img/niños.jpg"
@@ -263,7 +263,7 @@ const Inicio = () => {
             </Col>
 
             {/* CARD 4 */}
-            <Col xs={10} md={5} lg={3}>
+            <Col xs={10} md={6} lg={3}>
               <div className="card card-catalogo text-white border-0 position-relative">
                 <img
                   src="/img/accesorios3.avif"
