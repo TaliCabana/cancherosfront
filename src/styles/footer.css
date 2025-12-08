@@ -12,19 +12,19 @@
 }
 
 .links-section {
-    background-color: #000;
+    background-color: var(--negro);
     font-size: 0.9rem;
 }
 
 .social-icons i {
     font-size: 1.5rem;
-    color: white;
+    color: var(--blanco);
     cursor: pointer;
     transition: color 0.3s;
 }
 
 .social-icons i:hover {
-    color: #FFC107; /* Amarillo al pasar el mouse */
+    color: var(--verdeNeon);
 }
 
 /* --- BOTÓN FLOTANTE WHATSAPP --- */
