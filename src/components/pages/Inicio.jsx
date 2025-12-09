@@ -205,12 +205,12 @@ const Inicio = () => {
                   alt="mujer con ropa de deporte"
                 />
 
-                <div className="card-img-overlay d-flex flex-column justify-content-end bg-dark bg-opacity-25 text-center">
+                <div className="card-img-overlay d-flex flex-column justify-content-center bg-dark bg-opacity-25 text-center">
                   <h5 className="fw-bold mb-5">Indumentaria para ellas</h5>
                   <p>Todos los modelos que buscas de las mejores marcas.</p>
                   <Link
                     to="/productos/catalogoElla"
-                    className="btn btn-outline-light boton-catalogo w-50 mx-auto"
+                    className="btn boton-catalogo"
                   >
                     Ver Catálogo
                   </Link>
@@ -227,12 +227,12 @@ const Inicio = () => {
                   alt="hombre saltando"
                 />
 
-                <div className="card-img-overlay d-flex flex-column justify-content-end bg-dark bg-opacity-25 text-center">
+                <div className="card-img-overlay d-flex flex-column justify-content-center bg-dark bg-opacity-25 text-center">
                   <h5 className="fw-bold mb-3">Indumentaria para el hombre</h5>
                   <p>Camisetas de los mejores clubes y selecciones.</p>
                   <Link
                     to="/productos/catalogoHombre"
-                    className="btn btn-outline-light boton-catalogo w-50 mx-auto"
+                    className="btn btn-outline-light boton-catalogo"
                   >
                     Ver Catálogo
                   </Link>
@@ -249,12 +249,12 @@ const Inicio = () => {
                   alt="niños sonriendo"
                 />
 
-                <div className="card-img-overlay d-flex flex-column justify-content-end bg-dark bg-opacity-25 text-center">
+                <div className="card-img-overlay d-flex flex-column justify-content-center bg-dark bg-opacity-25 text-center">
                   <h5 className="fw-bold mb-5">Todo para los niños</h5>
                   <p>Las mejores pilchas para los futuros campeones.</p>
                   <Link
                     to="/productos/catalogoNinios"
-                    className="btn btn-outline-light boton-catalogo w-50 mx-auto"
+                    className="btn btn-outline-light boton-catalogo"
                   >
                     Ver Catálogo
                   </Link>
@@ -271,12 +271,12 @@ const Inicio = () => {
                   alt="accesorios deportivos"
                 />
 
-                <div className="card-img-overlay d-flex flex-column justify-content-end bg-dark bg-opacity-25 text-center">
+                <div className="card-img-overlay d-flex flex-column justify-content-center bg-dark bg-opacity-25 text-center">
                   <h5 className="fw-bold mb-5">Accesorios Deportivos</h5>
                   <p>Todo lo que necesitás para completar tu equipamiento.</p>
                   <Link
                     to="/productos/catalogoAccesorio"
-                    className="btn btn-outline-light boton-catalogo w-50 mx-auto"
+                    className="btn btn-outline-light boton-catalogo"
                   >
                     Ver Catálogo
                   </Link>
