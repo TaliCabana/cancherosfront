@@ -10,7 +10,7 @@ import CatalogoElla from "./components/pages/productos/CatalogoElla";
 import CatalogoHombre from "./components/pages/productos/CatalogoHombre";
 import CatalogoNinios from "./components/pages/productos/CatalogoNinios";
 import CatalogoAccesorio from "./components/pages/productos/CatalogoAccesorio";
-import Administrador from "./components/pages/administrador";
+import Administrador from "./components/pages/Administrador";
 import FormularioTurno from "./components/pages/turno/FormularioTurno";
 
 
@@ -36,7 +36,7 @@ function App() {
           <Route path="/admin" element={<Administrador />} />
         </Routes>
        </main>
-      <Footer/>
+      {/* <Footer/> */}
     </BrowserRouter>
   );
 }
