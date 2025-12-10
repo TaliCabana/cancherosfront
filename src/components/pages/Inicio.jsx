@@ -86,7 +86,7 @@ const Inicio = ({ usuarioLogueado, setUsuarioLogueado }) => {
                 <div className="bg-dark bg-opacity-50 p-3 rounded  mx-auto caja-texto">
                   <h1 className="display-7 fw-bold">¡Vení estrenala!</h1>
                   <p className="lead fw-normal">
-                    Ya esta habilitada la cancha con alfombra de agua
+                    Ya está habilitada la cancha con alfombra de agua.
                   </p>
                 </div>
               </div>

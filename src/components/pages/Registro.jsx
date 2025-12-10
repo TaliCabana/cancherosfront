@@ -56,7 +56,7 @@ const Registro = ({ show, handleClose, setUsuarioLogueado, abrirLogin }) => {
                 <Form.Label>Nombre completo *</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Juan Pérez"
+                  placeholder="Nombre completo"
                   {...register("nombre", {
                     required: "El nombre es obligatorio",
                     minLength: {
@@ -102,7 +102,7 @@ const Registro = ({ show, handleClose, setUsuarioLogueado, abrirLogin }) => {
                 <Form.Label>Teléfono *</Form.Label>
                 <Form.Control
                   type="tel"
-                  placeholder="1122334455"
+                  placeholder="sin codigo de area"
                   {...register("telefono", {
                     required: "El teléfono es obligatorio",
                     pattern: {
