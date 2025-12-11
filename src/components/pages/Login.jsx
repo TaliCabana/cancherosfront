@@ -41,7 +41,7 @@ const Login = ({ show, handleClose, abrirRegistro, setUsuarioLogueado }) => {
             <Form.Label>Email</Form.Label>
             <Form.Control
               type="email"
-              placeholder="juan@email.com"
+              placeholder="email@email.com"
               {...register("email", {
                 required: "El email es obligatorio",
                 pattern: {
