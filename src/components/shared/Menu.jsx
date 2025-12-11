@@ -1,7 +1,8 @@
 import React from "react";
 import "../../styles/menu.css";
 import { Link } from "react-router-dom";
-import 'bootstrap-icons/font/bootstrap-icons.css';
+import "bootstrap-icons/font/bootstrap-icons.css";
+import logoDibuNeon17 from "../../img/logoDibuNeon17.png";
 
 const Menu = ({
   isAdmin,
@@ -12,15 +13,16 @@ const Menu = ({
 }) => {
   return (
     <header className="navbar-oscuro">
-      <Link to="/" className="text-decoration-none text-white">
+      <Link to="/" className="text-decoration-none">
         <div className="logo-container">
-          <span className="logo-icon">⚽</span>
-          <span className="logo-text">Cancheros TRUCHO</span>
+          {/*           <span className="logo-icon">⚽</span>
+           */}
+          <img src={logoDibuNeon17} alt="logo cancheros" className="logo-img" />
+          {/* <span className="logo-text">Cancheros TRUCHO</span> */}
         </div>
       </Link>
 
       <nav className="nav-links">
-        
         <Link to="/" className="nav-item">
           Inicio
         </Link>
@@ -36,7 +38,9 @@ const Menu = ({
           </>
         ) : usuario ? (
           <>
-            <span className="nav-link-light me-2"><i className="bi bi-person-plus"></i>  {usuario}</span>
+            <span className="nav-link-light me-2">
+              <i className="bi bi-person-plus"></i> {usuario}
+            </span>
             <span className="nav-link-light" onClick={cerrarSesion}>
               Cerrar sesión
             </span>

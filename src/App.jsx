@@ -12,6 +12,7 @@ import Administrador from "./components/pages/Administrador";
 import Login from "./components/pages/Login";
 import Registro from "./components/pages/Registro";
 import Contacto from "./components/pages/Contacto";
+import FormularioTurno from "./components/pages/turno/FormularioTurno";
 import "./styles/inicio.css";
 
 function App() {
@@ -122,6 +123,8 @@ function App() {
             path="/productos/catalogoAccesorio"
             element={<CatalogoAccesorio productosCreados={productosCreados} />}
           />
+          <Route path="/turno/formularioTurno" element={<FormularioTurno />} />
+          <Route path="/admin" element={<Administrador />} />
 
           <Route
             path="/"

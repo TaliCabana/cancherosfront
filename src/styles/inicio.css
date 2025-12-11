@@ -1,6 +1,3 @@
-
-
-
 :root {
   --rosa: #f78cc7;
   --magenta: #e60e42;
@@ -37,8 +34,17 @@
 }
 
 /* Ajuste posición de imagen  */
-.img-mujer-posicion {
+.img-posicion {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   object-position: center 30%;
+}
+
+.card-imagen-contenedor {
+  height: 250px;
+  overflow: hidden;
+  border-radius: 16px;
 }
 
 /* BOTÓN "ALQUILÁ YA" */
@@ -65,28 +71,30 @@
   box-shadow: 1px 1px 10px var(--ambar);
 }
 
-/* cards */
-
+/* CARDS */
 .card-catalogo {
   box-shadow: 3px 3px 20px var(--verdeExito);
   overflow: hidden;
-  margin: 10px;
   transition: all 0.3s ease;
-    color: #fff;
-  text-shadow: 0px 0px 12px rgba(0,0,0,1);
+  color: var(--blanco);
+  text-shadow: 0px 0px 500px rgba(0, 0, 0, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.texto-card {
+  flex: 1;
 }
 
 .card-catalogo:hover {
-  transform: scale(1.15);
-  box-shadow: 3px 3px 20px var(--verdeNeon3);
-  overflow: hidden;
+  transform: scale(1.05);
   box-shadow: 2px 2px 25px var(--verdeNeon);
+  background-color: rgba(0, 0, 0, 0.407);
 }
 
 .card-img-altura {
   width: 100%;
-  object-fit: cover;
-  height: auto;
+  height: 100%;
   aspect-ratio: 4/3;
 }
 
@@ -94,36 +102,14 @@
 .card .card-img-overlay {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.25);
-}
-
-.card .contenido-texto {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  flex-grow: 1; /* ocupa espacio y empuja el botón abajo */
-}
-
-/* Título y párrafo */
-.card .contenido-texto h5 {
-  margin: 0;
-  font-size: 1rem;
-  line-height: 1.2;
-}
-
-.card .contenido-texto p {
-  margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.2;
+  padding: 20px 10px;
+  background-color: rgba(0, 0, 0, 0.538);
 }
 
 /* carrusel publicidad */
-
 .slider-publicidad {
   overflow: hidden;
   width: 100%;
@@ -179,9 +165,7 @@
 }
 
 .card .boton-catalogo {
-  margin-top: 10px;
-  width: 60%;
-  max-width: 180px;
+  margin-top: 1px;
   padding: 6px 14px;
   font-size: 0.9rem;
   color: var(--blanco);
@@ -189,6 +173,7 @@
   box-shadow: 1px 1px 10px var(--blanco);
   background-color: rgba(0, 23, 34, 0.4);
   transition: all 0.3s ease;
+  margin-top: auto;
 }
 
 .card .boton-catalogo:hover {
@@ -205,37 +190,16 @@
   .carousel-ratio {
     aspect-ratio: 1/1;
   }
-  .card .contenido-texto h5 {
-    font-size: 0.9rem;
-  }
-  .card .contenido-texto p {
-    font-size: 0.8rem;
-  }
+
   .card .boton-catalogo {
     width: 70%;
     font-size: 0.8rem;
-  }
-
-  /* Contenido de texto más arriba */
-  .card .contenido-texto {
-    flex-grow: 0;
-    gap: 5px;
   }
 
   /* Botón en la parte de abarosajo */
   .card .boton-catalogo {
-    margin-top: auto;
     width: 70%;
     font-size: 0.8rem;
-  }
-
-  /* Overlay */
-  .card .card-img-overlay {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 10px;
   }
 
   /* Ajuste botón “Alquilá ya” */
@@ -248,8 +212,8 @@
   }
 }
 
-/* TABLET / MEDIANO */
-@media (min-width: 768px) and (max-width: 991px) {
+/* Tablet */
+@media (768px<= width <=991px) {
   .carousel-ratio {
     aspect-ratio: 18/9;
   }
@@ -257,71 +221,12 @@
     width: 60%;
     padding: 4px 8px;
   }
-  .card .contenido-texto h5 {
-    font-size: 1rem;
-  }
-  .card .contenido-texto p {
-    font-size: 0.9rem;
-  }
-  .card .boton-catalogo {
-    width: 60%;
-    font-size: 0.9rem;
-  }
-  /* Overlay de las cards */
-  .card .card-img-overlay {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 10px;
-  }
-
-  /* Subir títulos y párrafos */
-  .card .contenido-texto {
-    flex-grow: 0; /* no empuja el botón */
-    gap: 5px;
-  }
-
-  .card .boton-catalogo {
-    margin-top: auto;
-    width: 60%;
-    font-size: 0.9rem;
-  }
-
-  /*  aumentar altura de las fotos */
-  .card-img-altura {
-    height: 280px;
-  }
-
-  /* Reducir espacio entre cards  */
-  .row.row-cols-md-3 > .col {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    margin-bottom: 1rem; /* espacio vertical */
-  }
 }
 
-/* DESKTOP / GRANDE */
+/* Large / GRANDE */
 @media (min-width: 992px) {
-  /* Títulos y párrafos */
-  .card .contenido-texto {
-    flex-grow: 0;
-    gap: 5px;
-  }
-
   .card .boton-catalogo {
-    margin-top: auto;
-    width: 50%;
     font-size: 1rem;
-  }
-
-  /* Overlay */
-  .card .card-img-overlay {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 10px;
   }
 }
 
@@ -331,7 +236,6 @@
   width: 240px !important;
   margin: auto !important;
 }
-
 
 /* BOTÓN ALQUILÁ YA - ajuste móvil */
 @media (max-width: 767px) {
