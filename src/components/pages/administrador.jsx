@@ -200,7 +200,7 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
   return (
     <div className="container my-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h1 className="text-center flex-grow-1">Administrador de Productos</h1>
+        <h2 className="text-center flex-grow-1">Administrador de Productos</h2>
         <Button variant="success" onClick={abrirCrearProducto}>
           + Crear
         </Button>
