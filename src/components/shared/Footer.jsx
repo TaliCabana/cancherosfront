@@ -83,7 +83,6 @@ const Footer = () => {
         rel="noopener noreferrer"
       >
         <i className="bi bi-whatsapp"></i>
-        Contactanos
       </a>
     </Container>
   );
