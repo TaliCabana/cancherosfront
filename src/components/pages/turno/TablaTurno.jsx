@@ -30,14 +30,14 @@ const TablaTurno = ({ turnos, onEditar, onBorrar, onVer }) => {
               <tr key={index}>
                 <td>{t.nombre}</td>
                 <td>{t.fecha}</td>
-                <td>{t.hora}</td>
+                <td>{t.hora}:00</td>
                 <td>{t.cancha}</td>
                 <td>{t.estado}</td>
                 <td>
-                  <Button variant="success" size="sm" className="me-2" onClick={() => onVer(t, index)}>
+                  <Button variant="info" size="sm" className="me-2" onClick={() => onVer(t, index)}>
                     Ver
                   </Button>
-                  <Button variant="info" size="sm" className="me-2" onClick={() => onEditar(t, index)}>
+                  <Button variant="warning" size="sm" className="me-2" onClick={() => onEditar(t, index)}>
                     Editar
                   </Button>
                   <Button variant="danger" size="sm" onClick={() => onBorrar(index)}>
