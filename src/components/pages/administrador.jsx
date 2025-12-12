@@ -5,6 +5,68 @@ import Swal from "sweetalert2";
 import { Table, Button, Modal, Form } from "react-bootstrap";
 import ProductTable from "../admin/products/ProductTable"; 
 const Administrador = ({ productosCreados, setProductosCreados }) => {
+  /* Para Turnos */
+
+  const [turnos, setTurnos] = useState([]);
+  const [showModalTurno, setShowModalTurno] = useState(false);
+  const [turnoEditar, setTurnoEditar] = useState(null);
+  const [indiceEditar, setIndiceEditar] = useState(null);
+  const [showVerModalTurno, setShowVerModalTurno] = useState(false);
+  const [turnoVer, setTurnoVer] = useState(null);
+
+  useEffect(() => {
+    const turnosGuardados = JSON.parse(localStorage.getItem("turnos")) || [];
+    setTurnos(turnosGuardados);
+  }, []);
+
+  const verTurno = (turno) => {
+    setTurnoVer(turno);
+    setShowVerModalTurno(true);
+  };
+
+  const editarTurno = (turno, indice) => {
+    setTurnoEditar(turno);
+    setIndiceEditar(indice);
+    setShowModalTurno(true);
+  };
+
+  const borrarTurno = (indice) => {
+    Swal.fire({
+      title: "¿Seguro quieres borrar este turno?",
+      text: "¡No podrás revertir esta acción!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Sí, borrar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const turnosGuardados = JSON.parse(localStorage.getItem("turnos")) || [];
+        turnosGuardados.splice(indice, 1);
+        localStorage.setItem("turnos", JSON.stringify(turnosGuardados));
+        setTurnos(turnosGuardados);
+
+        Swal.fire({
+          icon: "success",
+          title: "Turno borrado",
+          text: "El turno ha sido eliminado correctamente",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+      }
+    });
+  };
+
+  const cerrarModalTurno = () => {
+    setShowModalTurno(false);
+    setTurnoEditar(null);
+    setIndiceEditar(null);
+    // Recargar turnos desde localStorage
+    const turnosGuardados = JSON.parse(localStorage.getItem("turnos")) || [];
+    setTurnos(turnosGuardados);
+  };
+
   const [showModal, setShowModal] = useState(false);
   const [nuevoProducto, setNuevoProducto] = useState({
     nombre: "",

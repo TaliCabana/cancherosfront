@@ -6,6 +6,7 @@ import Registro from "./Registro";
 import Swal from "sweetalert2";
 import { useEffect } from "react";
 import "../../styles/resumenTurno.css";
+import { Container, Row, Col, Card } from "react-bootstrap";
 
 const Inicio = ({ usuarioLogueado, setUsuarioLogueado }) => {
   const [showModalTurno, setShowModalTurno] = useState(false);
@@ -252,97 +253,98 @@ const Inicio = ({ usuarioLogueado, setUsuarioLogueado }) => {
       {/* venta productos */}
 
       <div className="container my-5">
-        <h2 className="text-center mb-4">La Indumentaria que Necesitas</h2>
+        <h2 className="text-center mb-4">La Indumentaria que Necesitás</h2>
+        <Container>
+          <Row className="row-gap-3 justify-content-center">
+            {/* CARD 1 */}
+            <Col xs={10} sm={8} md={6} xl={3}>
+              <Card className="card-catalogo card-imagen-contenedor d-flex flex-column h-md-100">
+                <Card.Img
+                  src="./img/mujer.avif"
+                  className="img-posicion"
+                  alt="mujer con ropa deportiva"
+                />
+                <Card.ImgOverlay className="d-flex align-items-center">
+                  <Card.Title>Indumentaria para ellas</Card.Title>
+                  <Card.Text className="texto-card flex-grow-1 d-flex align-items-center">
+                    Todos los modelos que buscás de las mejores marcas.
+                  </Card.Text>
+                  <Link
+                    to="/productos/catalogoElla"
+                    className="btn btn-outline-light boton-catalogo mx-auto"
+                  >
+                    Ver Catálogo
+                  </Link>
+                </Card.ImgOverlay>
+              </Card>
+            </Col>
+            {/* CARD 2 */}
+            <Col xs={10} sm={8} md={6} xl={3}>
+              <Card className="card-catalogo h-md-100 card-imagen-contenedor">
+                <Card.Img src="/img/hombre.jpg" className="img-posicion" alt="hombre saltando" />
+                <Card.ImgOverlay>
+                  <Card.Title>Indumentaria para el hombre</Card.Title>
+                  <Card.Text className="texto-card flex-grow-1 d-flex align-items-center">
+                    Camisetas de los mejores clubes y selecciones.
+                  </Card.Text>
 
-        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-          {/* CARD 1 */}
-          <div className="col">
-            <div className="card text-white border-0 position-relative">
-              <img
-                src="./img/mujer.avif"
-                className="card-img card-img-altura img-mujer-posicion"
-                alt="mujer con ropa de deporte"
-              />
+                  <Link
+                    to="/productos/catalogoHombre"
+                    className="btn btn-outline-light boton-catalogo mx-auto"
+                  >
+                    Ver Catálogo
+                  </Link>
+                </Card.ImgOverlay>
+              </Card>
+            </Col>
+            {/* CARD 3 */}
+            <Col xs={10} sm={8} md={6} xl={3}>
+              <Card className="card-catalogo h-md-100 card-imagen-contenedor">
+                <Card.Img
+                  src="/img/niños.jpg"
+                  className="img-posicion"
+                  alt="niños sonriendo"
+                  
+                />
+                <Card.ImgOverlay>
+                  <Card.Title>Todo para los niños</Card.Title>
+                  <Card.Text className="texto-card flex-grow-1 d-flex align-items-center">
+                    Las mejores pilchas para los futuros campeones.
+                  </Card.Text>
+                  <Link
+                    to="/productos/catalogoNinios"
+                    className="btn btn-outline-light boton-catalogo mx-auto"
+                  >
+                    Ver Catálogo
+                  </Link>
+                </Card.ImgOverlay>
+              </Card>
+            </Col>
+            {/* CARD 4 */}
+            <Col xs={10} sm={8} md={6} xl={3}>
+              <Card className="card-catalogo h-md-100 card-imagen-contenedor">
+                <Card.Img
+                  src="/img/accesorios3.avif"
+                  className="img-posicion"
+                  alt="muchos accesorios juntos"
+                />
+                <Card.ImgOverlay>
+                  <Card.Title>Accesorios Deportivos</Card.Title>
+                  <Card.Text className="texto-card flex-grow-1 d-flex align-items-center">
+                    Todo lo que necesitás para completar tu equipamiento.
+                  </Card.Text>
+                  <Link
+                    to="/productos/catalogoAccesorio"
+                    className="btn btn-outline-light boton-catalogo mx-auto"
+                  >
+                    Ver Catálogo
+                  </Link>
+                </Card.ImgOverlay>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
 
-              <div className="card-img-overlay d-flex flex-column justify-content-end bg-dark bg-opacity-25 text-center">
-                <h5 className="fw-bold mb-5">Indumentaria para ellas</h5>
-                <p>Todos los modelos que buscas de las mejores marcas.</p>
-                <Link
-                  to="/productos/catalogoElla"
-                  className="btn btn-outline-light boton-catalogo w-50 mx-auto"
-                >
-                  Ver Catálogo
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* CARD 2 */}
-          <div className="col">
-            <div className="card text-white border-0 position-relative">
-              <img
-                src="/img/hombre.jpg"
-                className="card-img card-img-altura"
-                alt="hombre saltando"
-              />
-
-              <div className="card-img-overlay d-flex flex-column justify-content-end bg-dark bg-opacity-25 text-center">
-                <h5 className="fw-bold mb-5">Indumentaria para el hombre</h5>
-                <p>Camisetas de los mejores clubes y selecciones.</p>
-                <Link
-                  to="/productos/catalogoHombre"
-                  className="btn btn-outline-light boton-catalogo w-50 mx-auto"
-                >
-                  Ver Catálogo
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* CARD 3 */}
-          <div className="col">
-            <div className="card text-white border-0 position-relative">
-              <img
-                src="/img/niños.jpg"
-                className="card-img card-img-altura"
-                alt="niños sonriendo"
-              />
-
-              <div className="card-img-overlay d-flex flex-column justify-content-end bg-dark bg-opacity-25 text-center">
-                <h5 className="fw-bold mb-5">Todo para los niños</h5>
-                <p>Las mejores pilchas para los futuros campeones.</p>
-                <Link
-                  to="/productos/catalogoNinios"
-                  className="btn btn-outline-light boton-catalogo w-50 mx-auto"
-                >
-                  Ver Catálogo
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* CARD 4 */}
-          <div className="col">
-            <div className="card text-white border-0 position-relative">
-              <img
-                src="/img/accesorios3.avif"
-                className="card-img card-img-altura"
-                alt="accesorios deportivos"
-              />
-
-              <div className="card-img-overlay d-flex flex-column justify-content-end bg-dark bg-opacity-25 text-center">
-                <h5 className="fw-bold mb-5">Accesorios Deportivos</h5>
-                <p>Todo lo que necesitás para completar tu equipamiento.</p>
-                <Link
-                  to="/productos/catalogoAccesorio"
-                  className="btn btn-outline-light boton-catalogo w-50 mx-auto"
-                >
-                  Ver Catálogo
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Modal de turno */}
