@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-
-
+const SERVER_URL = import.meta.env.VITE_API_URL 
+  ? import.meta.env.VITE_API_URL.replace('/api', '') 
+  : "http://localhost:4000";
 const ProductModal = ({ show, handleClose, productToEdit, handleSave }) => {
   const { register, handleSubmit, reset, setValue } = useForm();
 
@@ -12,16 +13,10 @@ const ProductModal = ({ show, handleClose, productToEdit, handleSave }) => {
       setValue("description", productToEdit.description);
       setValue("price", productToEdit.price);
       setValue("stock", productToEdit.stock);
-      setValue("category", productToEdit.category || "General");
-      
-      const sizesString = Array.isArray(productToEdit.sizes) 
-        ? productToEdit.sizes.join(", ") 
-        : (productToEdit.sizes || "Único");
-      
-      setValue("sizes", sizesString);
-
+       setValue("category", productToEdit.category || "General");
+      setValue("sizes", productToEdit.sizes || "Único");
     } else {
-      reset({ name: "", description: "", price: "", stock: "", imageUrl: "", category: "General", sizes: "" });
+      reset({ name: "", description: "", price: "", stock: "", imageUrl: "", category: "General" });
     }
   }, [productToEdit, show, setValue, reset]);
 
@@ -33,14 +28,12 @@ const ProductModal = ({ show, handleClose, productToEdit, handleSave }) => {
     formData.append("stock", data.stock);
     formData.append("category", data.category);
     formData.append("sizes", data.sizes);    
-    
     if (data.image && data.image[0]) {
       formData.append("image", data.image[0]);
     }
 
     handleSave(formData);
   };
-
   return (
     <Modal show={show} onHide={handleClose} backdrop="static" centered>
       <Modal.Header closeButton>
@@ -58,7 +51,7 @@ const ProductModal = ({ show, handleClose, productToEdit, handleSave }) => {
             <Form.Control as="textarea" rows={2} {...register("description")} />
           </Form.Group>
 
-          <div className="row">
+                    <div className="row">
             <div className="col-6">
               <Form.Group className="mb-3">
                 <Form.Label>Categoría</Form.Label>
@@ -87,13 +80,13 @@ const ProductModal = ({ show, handleClose, productToEdit, handleSave }) => {
             <div className="col-6">
               <Form.Group className="mb-3">
                 <Form.Label>Precio</Form.Label>
-                <Form.Control type="number" min="0" {...register("price", { required: true })} />
+                <Form.Control type="number" {...register("price", { required: true })} />
               </Form.Group>
             </div>
             <div className="col-6">
               <Form.Group className="mb-3">
                 <Form.Label>Stock</Form.Label>
-                <Form.Control type="number" min="0" {...register("stock", { required: true })} />
+                <Form.Control type="number" {...register("stock", { required: true })} />
               </Form.Group>
             </div>
           </div>
@@ -106,9 +99,9 @@ const ProductModal = ({ show, handleClose, productToEdit, handleSave }) => {
                   className="mb-3 text-center p-2 border rounded" 
                   style={{ backgroundColor: "rgba(255, 255, 255, 0.05)", borderColor: "#444" }}
                 >
-                <p className="small mb-1" style={{ color: "#333", fontWeight: "bold" }}>Imagen Actual:</p>
+                <p className="small mb-1" style={{ color: "white", fontWeight: "bold" }}>Imagen Actual:</p>
                 <img 
-                  src={productToEdit.imageUrl} 
+                  src={`${SERVER_URL}${productToEdit.imageUrl}`} 
                   alt="Previsualización" 
                   style={{ maxHeight: "150px", objectFit: "contain", borderRadius: "5px" }}
                 />
@@ -134,5 +127,6 @@ const ProductModal = ({ show, handleClose, productToEdit, handleSave }) => {
     </Modal>
   );
 };
+
 
 export default ProductModal;
