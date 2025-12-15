@@ -4,7 +4,12 @@ import { Table, Button, Modal, Form } from "react-bootstrap";
 import TablaTurno from "../pages/turno/TablaTurno";
 import ModalTurno from "../pages/turno/ModalTurno";
 import ModalVerTurno from "../pages/turno/ModalVerTurno";
-
+import { 
+  obtenerProducto, 
+  crearProducto, 
+  editarProducto as editarProductoService, 
+  borrarProductoService 
+} from "../../helpers/queries";
 const Administrador = ({ productosCreados, setProductosCreados }) => {
   /* Para Turnos */
 
@@ -67,16 +72,29 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
     const turnosGuardados = JSON.parse(localStorage.getItem("turnos")) || [];
     setTurnos(turnosGuardados);
   };
-
+  const [productosAPI, setProductosAPI] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [nuevoProducto, setNuevoProducto] = useState({
+  const [archivoImagen, setArchivoImagen] = useState(null); 
+   const [nuevoProducto, setNuevoProducto] = useState({
     nombre: "",
     precio: "",
     descripcion: "",
     talles: "",
-    imagen: "",
     categoria: "ellas",
   });
+  const [editandoId, setEditandoId] = useState(null);
+   const cargarProductos = async () => {
+    try {
+      const data = await obtenerProducto();
+      setProductosAPI(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    cargarProductos();
+  }, []);
 
   const abrirCrearProducto = () => {
     setNuevoProducto({
@@ -84,20 +102,14 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
       precio: "",
       descripcion: "",
       talles: "",
-      imagen: "",
       categoria: "ellas",
     });
+   setArchivoImagen(null);
     setShowModal(true);
     setEditandoId(null);
   };
 
-  /* PRODUCTOS */
-
-  /* Sin imagen */
-  const imagenPorDefecto =
-  "https://images.pexels.com/photos/28216688/pexels-photo-28216688.png?_gl=1*mmuo1c*_ga*OTI5MTUwOTU1LjE3NDY5MTY0MDM.*_ga_8JE65Q40S6*czE3NjU3NTY4MzMkbzMyJGcxJHQxNzY1NzU3NDg4JGo1OSRsMCRoMA..";
-
-
+  
   /* ver producto */
   const [showVerModal, setShowVerModal] = useState(false);
   const [productoVer, setProductoVer] = useState(null);
@@ -108,96 +120,94 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
     setShowVerModal(true);
   };
 
-  // Estado para saber si estamos editando
-  const [editandoId, setEditandoId] = useState(null);
 
   // Función para abrir el modal con los datos del producto a editar
-  const editarProducto = (producto) => {
-    setNuevoProducto(producto); // precargamos los datos
-    setEditandoId(producto.id); // guardamos el id que vamos a editar
-    setShowModal(true); // abrimos modal
+   const editarProducto = (producto) => {
+    const tallesString = Array.isArray(producto.talles) ? producto.talles.join(", ") : producto.talles;
+
+    setNuevoProducto({
+      nombre: producto.nombre,
+      precio: producto.precio,
+      descripcion: producto.descripcion,
+      talles: tallesString,
+      categoria: producto.categoria,
+    });
+    setArchivoImagen(null);
+    setEditandoId(producto._id); 
+    setShowModal(true);
   };
 
-  const guardarProducto = () => {
-    const productoConId = { ...nuevoProducto, imagen: nuevoProducto.imagen && nuevoProducto.imagen.trim() !== ""? nuevoProducto.imagen : imagenPorDefecto };
+  const guardarProducto = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("nombre", nuevoProducto.nombre);
+      formData.append("descripcion", nuevoProducto.descripcion);
+      formData.append("precio", nuevoProducto.precio.toString().replace("$", ""));
+      formData.append("talles", nuevoProducto.talles);
+      formData.append("categoria", nuevoProducto.categoria);
+      
+      if (archivoImagen) {
+        formData.append("imagen", archivoImagen);
+      }
 
-    if (editandoId) {
-      // Editando: reemplazamos el producto existente
-      const productosActualizados = productosCreados.map((p) =>
-        p.id === editandoId ? productoConId : p
-      );
-      setProductosCreados(productosActualizados);
-      setEditandoId(null);
-
-      // Guardamos en localStorage
-      localStorage.setItem(
-        "productosCreados",
-        JSON.stringify(productosActualizados)
-      );
-
-      // SweetAlert para edición
-      Swal.fire({
-        icon: "success",
-        title: "Producto editado",
-        text: `${nuevoProducto.nombre} ha sido editado exitosamente`,
-        timer: 2000,
-        showConfirmButton: false,
-      });
-    } else {
-      // Creando: agregamos nuevo producto
-      productoConId.id = Date.now();
-      const productosActualizados = [...productosCreados, productoConId];
-      setProductosCreados(productosActualizados);
-
-      // Guardamos en localStorage
-      localStorage.setItem(
-        "productosCreados",
-        JSON.stringify(productosActualizados)
-      );
-
-      // SweetAlert para creación
-      Swal.fire({
-        icon: "success",
-        title: "Producto creado",
-        text: `${nuevoProducto.nombre} ha sido agregado con éxito`,
-        timer: 2000,
-        showConfirmButton: false,
-      });
-    }
-
-    setShowModal(false);
-  };
-
-  const borrarProducto = (id) => {
-    Swal.fire({
-      title: "¿Seguro quieres borrar?",
-      text: "¡No podrás revertir esta acción!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Sí, borrar",
-      cancelButtonText: "Cancelar",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const productosActualizados = productosCreados.filter(
-          (p) => p.id !== id
-        );
-        setProductosCreados(productosActualizados);
-
+      if (editandoId) {
+        await editarProductoService(editandoId, formData);
+        
         Swal.fire({
           icon: "success",
-          title: "Producto borrado",
-          text: "El producto ha sido eliminado correctamente",
+          title: "Producto editado",
+          text: "Cambios guardados en la base de datos",
           timer: 2000,
           showConfirmButton: false,
         });
+      } else {
+        await crearProducto(formData);
 
-        // Actualizamos localStorage
-        localStorage.setItem(
-          "productosCreados",
-          JSON.stringify(productosActualizados)
-        );
+        Swal.fire({
+          icon: "success",
+          title: "Producto creado",
+          text: "Guardado exitosamente en Cloudinary y Mongo",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+      }
+
+      cargarProductos();
+      setShowModal(false);
+
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Hubo un problema al guardar el producto",
+      });
+    }
+  };
+
+   const borrarProducto = (id) => {
+    Swal.fire({
+      title: "¿Seguro quieres borrar?",
+      text: "Se eliminará de la base de datos y la nube",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      confirmButtonText: "Sí, borrar",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await borrarProductoService(id);
+          cargarProductos(); 
+          
+          Swal.fire({
+            icon: "success",
+            title: "Producto borrado",
+            timer: 2000,
+            showConfirmButton: false,
+          });
+        } catch (error) {
+          Swal.fire("Error", "No se pudo eliminar", "error");
+        }
       }
     });
   };
@@ -212,7 +222,7 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
       </div>
 
       <Table striped bordered hover responsive>
-        <thead>
+         <thead>
           <tr className="text-center">
             <th>Nombre</th>
             <th>Precio</th>
@@ -224,56 +234,37 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
           </tr>
         </thead>
         <tbody>
-          {productosCreados.length === 0 ? (
+          {productosAPI.length === 0 ? (
             <tr>
               <td colSpan={7} className="text-center">
-                No hay productos nuevos
+                Cargando productos o no hay datos...
               </td>
             </tr>
           ) : (
-            productosCreados.map((producto) => (
-              <tr key={producto.id} className="text-center">
+            productosAPI.map((producto) => (
+              <tr key={producto._id} className="text-center">
                 <td>{producto.nombre}</td>
-                <td>{producto.precio}</td>
+                <td>${producto.precio}</td>
                 <td>{producto.descripcion}</td>
-                <td>{producto.talles}</td>
                 <td>
-                  {producto.imagen ? (
-                    <img
-                      src={producto.imagen}
-                      alt={producto.nombre}
-                      width={60}
-                      height={60}
-                    />
-                  ) : (
-                    "-"
-                  )}
+                  {Array.isArray(producto.talles) 
+                    ? producto.talles.join(", ") 
+                    : producto.talles}
+                </td>
+                <td>
+                  <img
+                    src={producto.imagen || "https://via.placeholder.com/50"}
+                    alt={producto.nombre}
+                    width={60}
+                    height={60}
+                    style={{ objectFit: "cover", borderRadius: "5px" }}
+                  />
                 </td>
                 <td>{producto.categoria}</td>
                 <td>
-                  <Button
-                    variant="info"
-                    size="sm"
-                    className="me-1"
-                    onClick={() => verProducto(producto)}
-                  >
-                    Ver
-                  </Button>
-                  <Button
-                    variant="warning"
-                    size="sm"
-                    className="me-1"
-                    onClick={() => editarProducto(producto)}
-                  >
-                    Editar
-                  </Button>
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    onClick={() => borrarProducto(producto.id)}
-                  >
-                    Borrar
-                  </Button>
+                  <Button variant="info" size="sm" className="me-1" onClick={() => verProducto(producto)}>Ver</Button>
+                  <Button variant="warning" size="sm" className="me-1" onClick={() => editarProducto(producto)}>Editar</Button>
+                  <Button variant="danger" size="sm" onClick={() => borrarProducto(producto._id)}>Borrar</Button>
                 </td>
               </tr>
             ))
@@ -377,15 +368,14 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
               </Form.Select>
             </Form.Group>
 
-            <Form.Group className="mb-2">
-              <Form.Label>Imagen (URL)</Form.Label>
-              <Form.Control
-                type="text"
-                value={nuevoProducto.imagen}
-                onChange={(e) =>
-                  setNuevoProducto({ ...nuevoProducto, imagen: e.target.value })
-                }
+             <Form.Group className="mb-2">
+              <Form.Label>Imagen</Form.Label>
+              <Form.Control 
+                type="file" 
+                accept="image/*"
+                onChange={(e) => setArchivoImagen(e.target.files[0])} 
               />
+              {editandoId && <Form.Text className="text-muted">Deja vacío para mantener la actual.</Form.Text>}
             </Form.Group>
 
             <Form.Group className="mb-2">
