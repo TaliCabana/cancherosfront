@@ -37,7 +37,7 @@ export const deleteProduct = async (id) => {
 const BASE_URL = import.meta.env.VITE_API_URL;
 const API_URL = `${BASE_URL}/productos`;
 
-export const obtenerProductos = async () => {
+export const obtenerProducto = async () => {
   const res = await fetch(API_URL);
   if (!res.ok) throw new Error("Error al obtener productos");
   return res.json();
