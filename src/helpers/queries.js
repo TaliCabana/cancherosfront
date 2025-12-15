@@ -17,7 +17,7 @@ export const crearProducto = async (formData) => {
   return res.json();
 };
 
-export const editarProducto = async (id, producto) => {
+export const editarProducto = async (id, formData) => {
   const res = await fetch(`${API_URL}/${id}`, {
     method: "PUT",
     body: formData,

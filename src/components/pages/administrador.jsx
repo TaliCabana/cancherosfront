@@ -368,14 +368,31 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
               </Form.Select>
             </Form.Group>
 
-             <Form.Group className="mb-2">
+              <Form.Group className="mb-2">
               <Form.Label>Imagen</Form.Label>
-              <Form.Control 
-                type="file" 
-                accept="image/*"
-                onChange={(e) => setArchivoImagen(e.target.files[0])} 
-              />
-              {editandoId && <Form.Text className="text-muted">Deja vacío para mantener la actual.</Form.Text>}
+              <div className="d-flex align-items-center gap-2">
+                <Form.Control
+                  type="file"
+                  accept="image/*"
+                  id="carga-imagen" 
+                  className="d-none"
+                  onChange={(e) => setArchivoImagen(e.target.files[0])}
+                />
+                
+                <Form.Label 
+                  htmlFor="carga-imagen" 
+                  className="btn btn-secondary mb-0" 
+                  style={{ cursor: "pointer" }}
+                >
+                  Seleccionar archivo
+                </Form.Label>
+
+                <span className="text-muted fst-italic">
+                  {archivoImagen ? archivoImagen.name : "Ningún archivo seleccionado"}
+                </span>
+              </div>
+
+              {editandoId && <Form.Text className="text-muted d-block mt-1">Deja vacío para mantener la imagen actual.</Form.Text>}
             </Form.Group>
 
             <Form.Group className="mb-2">
