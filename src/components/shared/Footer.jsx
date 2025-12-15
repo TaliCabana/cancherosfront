@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="container">
           <div className="row text-center text-md-start pb-2">
             {/* Columna Contactanos */}
-            <div className="col-md-4 mb-3 text-center">
+            <div className="col-md-3 mb-3 text-center">
               <h6 className="titulos-redes fw-bold mb-1">Contactanos</h6>
               <div className="d-flex justify-content-center gap-3 social-icons">
                 <a
@@ -25,8 +25,21 @@ const Footer = () => {
               </div>
             </div>
 
+
+            {/* Columna Nosotros */}
+            <div className="col-md-3 mb-3 text-center">
+              <h6 className="titulos-redes fw-bold mb-1">Nosotros</h6>
+              <div className="d-flex justify-content-center gap-3 social-icons">
+                <Link to="nosotros">
+                  <i class="bi bi-person-hearts"></i>
+                </Link>
+              </div>
+            </div>
+
+
+
             {/* Columna Redes */}
-            <div className="col-md-4 mb-3 text-center">
+            <div className="col-md-3 mb-3 text-center">
               <h6 className="titulos-redes fw-bold mb-1">Nuestras redes</h6>
               <div className="d-flex justify-content-center gap-3 social-icons">
                 <a
@@ -54,7 +67,7 @@ const Footer = () => {
             </div>
 
             {/* Columna Descarga */}
-            <div className="col-md-4 mb-1 text-center">
+            <div className="col-md-3 mb-1 text-center">
               <h6 className="titulos-redes fw-bold mb-1">Descargá la app</h6>
               <div className="d-flex justify-content-center gap-3 social-icons">
                 <Link to="*">
