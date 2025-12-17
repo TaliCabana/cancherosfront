@@ -4,7 +4,7 @@ import { Table, Button, Modal, Form } from "react-bootstrap";
 import TablaTurno from "../pages/turno/TablaTurno";
 import ModalTurno from "../pages/turno/ModalTurno";
 import ModalVerTurno from "../pages/turno/ModalVerTurno";
-import TablaUsuarios from "../admin/users/TablaUsuarios";
+import TablaUsuarios from "../Admin/users/TablaUsuarios";
 import {
   obtenerProducto,
   crearProducto,
