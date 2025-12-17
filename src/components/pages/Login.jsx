@@ -86,7 +86,7 @@ const Login = ({ show, handleClose, abrirRegistro, setUsuarioLogueado }) => {
             {errors.password && <Form.Text className="text-danger">{errors.password.message}</Form.Text>}
           </Form.Group>
 
-          <Button type="submit" className="btn-verde w-50 mx-auto d-block">Iniciar sesión</Button>
+          <Button type="submit" className="btn-verde w-75 mx-auto d-block">Iniciar sesión</Button>
 
           <div className="text-center mt-3">
             <span>¿Aún no te registraste? </span>
