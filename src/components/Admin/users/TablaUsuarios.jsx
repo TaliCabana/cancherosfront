@@ -157,11 +157,11 @@ const TablaUsuarios = () => {
                 </span>
               </td>
               <td>
-                <Button variant="warning" size="sm" className="me-2" onClick={() => handleEditar(user)}>
+                <Button  style={{ backgroundColor: 'var(--ambar)', borderColor: 'var(--ambar)', color: 'black' }} size="sm" className="me-2" onClick={() => handleEditar(user)}>
                   Editar
                 </Button>
                 <Button 
-                  variant="danger" 
+                  style={{ backgroundColor: 'var(--magenta)', borderColor: 'var(--magenta)', color: 'white' }}
                   size="sm" 
                   onClick={() => borrarUsuario(user._id)}
                   disabled={user.email === usuarioLogueado.email} 

@@ -375,7 +375,7 @@ const cargarProductos = async () => {
                     Ver
                   </Button>
                   <Button
-                    variant="warning"
+                    style={{ backgroundColor: 'var(--ambar)', borderColor: 'var(--ambar)', color: 'black' }}
                     size="sm"
                     className="m-1"
                     onClick={() => editarProducto(producto)}
@@ -383,7 +383,7 @@ const cargarProductos = async () => {
                     Editar
                   </Button>
                   <Button
-                    variant="danger"
+                     style={{ backgroundColor: 'var(--magenta)', borderColor: 'var(--magenta)', color: 'white' }}
                     size="sm"
                     className="m-1"
                     onClick={() => borrarProducto(producto._id)}

@@ -1,3 +1,5 @@
+import Swal from "sweetalert2";
+
 const URL_PRODUCTOS = import.meta.env.VITE_API_URL 
   ? `${import.meta.env.VITE_API_URL}/products` 
   : "http://localhost:3001/api/products";
@@ -28,7 +30,19 @@ const authFetch = async (url, options = {}) => {
     const response = await fetch(url, options);
 
     if (response.status === 401) {
-      console.warn("Token expirado o inválido. Cerrando sesión...");
+       await Swal.fire({
+        title: "Sesión Expirada",
+        text: "Tu credencial ha vencido por seguridad. Por favor, inicia sesión nuevamente.",
+        icon: "warning",
+        confirmButtonText: "Entendido",
+        customClass: {
+            popup: 'swal-popup-custom',
+            confirmButton: 'btn-swal-confirm',
+            title: 'swal2-title',
+            htmlContainer: 'swal2-html-container'
+        },
+        buttonsStyling: false
+      });
       
       sessionStorage.removeItem('usuarioKey');
       
