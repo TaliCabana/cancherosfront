@@ -140,6 +140,10 @@ export const registroAPI = async (usuario) => {
 
 export const obtenerUsuarios = async () => {
   const token = getToken();
+  if (!token) {
+      console.log("Esperando el token...");
+      return; 
+    }
   try {
     const respuesta = await authFetch(URL_USUARIOS, {
       headers: {
