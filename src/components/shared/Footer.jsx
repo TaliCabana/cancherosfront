@@ -23,7 +23,7 @@ const Footer = () => {
                   <i className="bi bi-envelope"></i>
                 </Link>
                 <a
-                  href="https://share.google/XuZGa6cdDVmXFOPua"
+                  href="https://maps.app.goo.gl/Nt4DT2jjkq47mHa59"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

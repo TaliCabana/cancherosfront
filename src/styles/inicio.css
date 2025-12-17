@@ -200,6 +200,13 @@
   color: var(--azulPetroleo);
 }
 
+.btn-texto{
+  color:var(--verdeExito);
+}
+
+.btn-texto:hover{
+  color:var(--verdeNeon);
+}
 
 /*MEDIA QUERIES */
 

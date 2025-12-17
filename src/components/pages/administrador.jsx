@@ -337,7 +337,7 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
                   <Button
                     variant="info"
                     size="sm"
-                    className="me-1"
+                    className="m-1"
                     onClick={() => verProducto(producto)}
                   >
                     Ver
@@ -345,7 +345,7 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
                   <Button
                     variant="warning"
                     size="sm"
-                    className="me-1"
+                    className="m-1"
                     onClick={() => editarProducto(producto)}
                   >
                     Editar
@@ -353,6 +353,7 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
                   <Button
                     variant="danger"
                     size="sm"
+                    className="m-1"
                     onClick={() => borrarProducto(producto._id)}
                   >
                     Borrar
