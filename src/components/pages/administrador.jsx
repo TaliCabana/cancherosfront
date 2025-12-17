@@ -113,13 +113,13 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
   const [editandoId, setEditandoId] = useState(null);
 const cargarProductos = async () => {
     try {
-      const respuesta = await obtenerProductos(); // Ojo: ¿Se llama obtenerProducto o obtenerProductos?
+      const respuesta = await obtenerProducto(); 
       
-      console.log("--> RESPUESTA DEL BACKEND:", respuesta); // <--- MIRA ESTO EN LA CONSOLA DEL NAVEGADOR
+      console.log("--> RESPUESTA DEL BACKEND:", respuesta); 
 
       if (respuesta && respuesta.status === 200) {
         const data = await respuesta.json();
-        console.log("--> DATOS JSON:", data); // <--- Y ESTO
+        console.log("--> DATOS JSON:", data); 
         setProductosAPI(data);
       }
     } catch (error) {
