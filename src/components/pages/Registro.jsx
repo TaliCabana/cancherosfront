@@ -127,7 +127,7 @@ const Registro = ({ show, handleClose, abrirLogin, setUsuarioLogueado }) => {
                 {errors.password && <Form.Text className="text-danger small">{errors.password.message}</Form.Text>}
               </Form.Group>
                   <div className="justify-content-center d-flex">
-              <Button type="submit" className="btn-verde w-50 mt-2 text-white">
+              <Button type="submit" className="btn-verde w-100 w-md-75 mt-2 text-white">
                 Registrarme
               </Button>
                   </div>

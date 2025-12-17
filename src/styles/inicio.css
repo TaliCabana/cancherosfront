@@ -208,6 +208,28 @@
   color:var(--verdeNeon);
 }
 
+/* Formularios */
+
+.form-control,
+.form-select,
+.form-check-input {
+  border-color: 2px solid var(--verdeExito)!important; 
+}
+
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+  border-color: 2px solid var(--verdeNeon)!important;
+  box-shadow: 0 0 0 0.2rem var(--verdeNeon) !important;
+}
+
+.form-control:hover,
+.form-select:hover,
+.form-check-input:hover {
+  border-color: 2px var(--verdeNeon)!important;
+  box-shadow: 2px 2px 15px var(--verdeNeon)!important;
+}
+
 /*MEDIA QUERIES */
 
 /* MÓVIL */
