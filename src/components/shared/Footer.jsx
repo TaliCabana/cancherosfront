@@ -22,21 +22,25 @@ const Footer = () => {
                 <Link to="contacto">
                   <i className="bi bi-envelope"></i>
                 </Link>
+                <a
+                  href="https://maps.app.goo.gl/Nt4DT2jjkq47mHa59"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i class="bi bi-geo-alt"></i>
+                </a>
               </div>
             </div>
-
 
             {/* Columna Nosotros */}
             <div className="col-md-3 mb-3 text-center">
               <h6 className="titulos-redes fw-bold mb-1">Nosotros</h6>
               <div className="d-flex justify-content-center gap-3 social-icons">
                 <Link to="nosotros">
-                  <i class="bi bi-person-hearts"></i>
+                  <i className="bi bi-person-hearts"></i>
                 </Link>
               </div>
             </div>
-
-
 
             {/* Columna Redes */}
             <div className="col-md-3 mb-3 text-center">
