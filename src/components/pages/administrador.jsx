@@ -111,12 +111,19 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
   });
    const [errors, setErrors] = useState({});
   const [editandoId, setEditandoId] = useState(null);
-  const cargarProductos = async () => {
+const cargarProductos = async () => {
     try {
-      const data = await obtenerProducto();
-      setProductosAPI(data);
+      const respuesta = await obtenerProductos(); // Ojo: ¿Se llama obtenerProducto o obtenerProductos?
+      
+      console.log("--> RESPUESTA DEL BACKEND:", respuesta); // <--- MIRA ESTO EN LA CONSOLA DEL NAVEGADOR
+
+      if (respuesta && respuesta.status === 200) {
+        const data = await respuesta.json();
+        console.log("--> DATOS JSON:", data); // <--- Y ESTO
+        setProductosAPI(data);
+      }
     } catch (error) {
-      console.error(error);
+      console.error("Error al cargar:", error);
     }
   };
 
