@@ -2,32 +2,38 @@ import React, { useState, useEffect } from "react";
 import { Table, Button, Modal, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import { 
-  obtenerUsuarios, 
-  borrarUsuarioAPI, 
-  crearUsuarioAdmin, 
-  editarUsuarioAPI 
+import {
+  obtenerUsuarios,
+  borrarUsuarioAPI,
+  crearUsuarioAdmin,
+  editarUsuarioAPI,
 } from "../../../helpers/queries";
 
 const TablaUsuarios = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [usuarioEditar, setUsuarioEditar] = useState(null);
-  
-  const usuarioLogueado = JSON.parse(sessionStorage.getItem("usuarioKey")) || {};
 
-  const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm();
+  const usuarioLogueado =
+    JSON.parse(sessionStorage.getItem("usuarioKey")) || {};
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setValue,
+    formState: { errors },
+  } = useForm();
 
   const cargarUsuarios = async () => {
     try {
       const respuesta = await obtenerUsuarios();
-      
+
       if (respuesta && respuesta.status === 200) {
-        const data = await respuesta.json(); 
+        const data = await respuesta.json();
         setUsuarios(data);
         console.log("Usuarios cargados:", data);
       }
-      
     } catch (error) {
       console.log("Error cargando usuarios:", error);
     }
@@ -46,9 +52,10 @@ const TablaUsuarios = () => {
   const handleEditar = (usuario) => {
     setUsuarioEditar(usuario);
     setValue("nombre", usuario.nombre);
+    setValue("telefono", usuario.telefono);
     setValue("email", usuario.email);
     setValue("rol", usuario.rol);
-    setValue("password", ""); 
+    setValue("password", "");
     setShowModal(true);
   };
 
@@ -59,7 +66,7 @@ const TablaUsuarios = () => {
       }
 
       if (usuarioEditar && usuarioEditar.email === usuarioLogueado.email) {
-        data.rol = usuarioLogueado.rol; 
+        data.rol = usuarioLogueado.rol;
       }
 
       let respuesta;
@@ -74,16 +81,16 @@ const TablaUsuarios = () => {
           icon: "success",
           title: usuarioEditar ? "Usuario actualizado" : "Usuario creado",
           timer: 1500,
-          showConfirmButton: false
+          showConfirmButton: false,
         });
         cargarUsuarios();
         setShowModal(false);
       } else {
         const errorData = await respuesta.json();
-        Swal.fire({ 
-            icon: "error", 
-            title: "Error", 
-            text: errorData.mensaje || "No se pudo guardar. Verifica los datos." 
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: errorData.mensaje || "No se pudo guardar. Verifica los datos.",
         });
       }
     } catch (error) {
@@ -102,11 +109,11 @@ const TablaUsuarios = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         const respuesta = await borrarUsuarioAPI(id);
-        if(respuesta.status === 200){
-            cargarUsuarios();
-            Swal.fire("Eliminado", "El usuario ha sido eliminado.", "success");
+        if (respuesta.status === 200) {
+          cargarUsuarios();
+          Swal.fire("Eliminado", "El usuario ha sido eliminado.", "success");
         } else {
-            Swal.fire("Error", "No se pudo eliminar el usuario", "error");
+          Swal.fire("Error", "No se pudo eliminar el usuario", "error");
         }
       }
     });
@@ -120,7 +127,7 @@ const TablaUsuarios = () => {
           + Nuevo Usuario
         </Button>
       </div>
-      
+
       <Table striped bordered hover responsive variant="dark">
         <thead>
           <tr>
@@ -136,20 +143,33 @@ const TablaUsuarios = () => {
               <td>{user.nombre}</td>
               <td>{user.email}</td>
               <td>
-                <span className={`badge ${user.rol === "admin" ? "bg-warning text-dark" : "bg-primary"}`}>
+                <span
+                  className={`badge ${
+                    user.rol === "admin" ? "bg-warning text-dark" : "bg-primary"
+                  }`}
+                >
                   {user.rol}
                 </span>
               </td>
               <td>
-                <Button variant="warning" size="sm" className="me-2" onClick={() => handleEditar(user)}>
+                <Button
+                  variant="warning"
+                  size="sm"
+                  className="me-2"
+                  onClick={() => handleEditar(user)}
+                >
                   Editar
                 </Button>
-                <Button 
-                  variant="danger" 
-                  size="sm" 
+                <Button
+                  variant="danger"
+                  size="sm"
                   onClick={() => borrarUsuario(user._id)}
-                  disabled={user.email === usuarioLogueado.email} 
-                  title={user.email === usuarioLogueado.email ? "No puedes borrarte a ti mismo" : "Borrar usuario"}
+                  disabled={user.email === usuarioLogueado.email}
+                  title={
+                    user.email === usuarioLogueado.email
+                      ? "No puedes borrarte a ti mismo"
+                      : "Borrar usuario"
+                  }
                 >
                   Borrar
                 </Button>
@@ -161,20 +181,21 @@ const TablaUsuarios = () => {
 
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
-          <Modal.Title>{usuarioEditar ? "Editar Usuario" : "Crear Usuario"}</Modal.Title>
+          <Modal.Title>
+            {usuarioEditar ? "Editar Usuario" : "Crear Usuario"}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit(onSubmit)}>
-            
             <Form.Group className="mb-3">
               <Form.Label>Nombre</Form.Label>
-              <Form.Control 
-                type="text" 
-                {...register("nombre", { 
-                    required: "El nombre es obligatorio", 
-                    minLength: { value: 3, message: "Mínimo 3 caracteres" } 
-                })} 
-                isInvalid={!!errors.nombre} 
+              <Form.Control
+                type="text"
+                {...register("nombre", {
+                  required: "El nombre es obligatorio",
+                  minLength: { value: 3, message: "Mínimo 3 caracteres" },
+                })}
+                isInvalid={!!errors.nombre}
               />
               <Form.Control.Feedback type="invalid">
                 {errors.nombre?.message}
@@ -182,16 +203,34 @@ const TablaUsuarios = () => {
             </Form.Group>
 
             <Form.Group className="mb-3">
+              <Form.Label>Teléfono</Form.Label>
+              <Form.Control
+                type="text"
+                {...register("telefono", {
+                  required: "El teléfono es obligatorio",
+                  minLength: {
+                    value: 6,
+                    message: "El teléfono debe tener al menos 6 dígitos",
+                  },
+                })}
+                isInvalid={!!errors.telefono}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.telefono?.message}
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
               <Form.Label>Email</Form.Label>
-              <Form.Control 
-                type="email" 
-                {...register("email", { 
-                    required: "El email es obligatorio",
-                    pattern: {
-                        value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
-                        message: "Ingresa un correo válido (ej: nombre@mail.com)"
-                    }
-                })} 
+              <Form.Control
+                type="email"
+                {...register("email", {
+                  required: "El email es obligatorio",
+                  pattern: {
+                    value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
+                    message: "Ingresa un correo válido (ej: nombre@mail.com)",
+                  },
+                })}
                 isInvalid={!!errors.email}
               />
               <Form.Control.Feedback type="invalid">
@@ -201,17 +240,25 @@ const TablaUsuarios = () => {
 
             <Form.Group className="mb-3">
               <Form.Label>Contraseña</Form.Label>
-              <Form.Control 
-                type="password" 
-                placeholder={usuarioEditar ? "Dejar vacío para no cambiar" : "Contraseña nueva"}
-                {...register("password", { 
-                    required: !usuarioEditar ? "La contraseña es obligatoria" : false,
-                    minLength: { value: 8, message: "Mínimo 8 caracteres" },
-                    pattern: {
-                        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]/,
-                        message: "Debe tener mayúscula, minúscula, número y carácter especial ($@!%*?&)"
-                    }
-                })} 
+              <Form.Control
+                type="password"
+                placeholder={
+                  usuarioEditar
+                    ? "Dejar vacío para no cambiar"
+                    : "Contraseña nueva"
+                }
+                {...register("password", {
+                  required: !usuarioEditar
+                    ? "La contraseña es obligatoria"
+                    : false,
+                  minLength: { value: 8, message: "Mínimo 8 caracteres" },
+                  pattern: {
+                    value:
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]/,
+                    message:
+                      "Debe tener mayúscula, minúscula, número y carácter especial ($@!%*?&)",
+                  },
+                })}
                 isInvalid={!!errors.password}
               />
               <Form.Control.Feedback type="invalid">
@@ -221,9 +268,11 @@ const TablaUsuarios = () => {
 
             <Form.Group className="mb-3">
               <Form.Label>Rol</Form.Label>
-              <Form.Select 
+              <Form.Select
                 {...register("rol", { required: true })}
-                disabled={usuarioEditar && usuarioEditar.email === usuarioLogueado.email}
+                disabled={
+                  usuarioEditar && usuarioEditar.email === usuarioLogueado.email
+                }
               >
                 <option value="usuario">Usuario</option>
                 <option value="admin">Administrador</option>
