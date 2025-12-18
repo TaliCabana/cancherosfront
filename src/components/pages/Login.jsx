@@ -10,6 +10,8 @@ const Login = ({ show, handleClose, abrirRegistro, setUsuarioLogueado }) => {
 
   const onSubmit = async (data) => {
     const respuesta = await loginAPI(data);
+// usuario administrador: admin@cancheros.com
+// contrasenia administrador: Cancheros$2025
     
     if (respuesta && respuesta.status === 200) {
       const datos = await respuesta.json();
