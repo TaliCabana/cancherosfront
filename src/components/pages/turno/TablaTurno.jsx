@@ -36,10 +36,10 @@ const TablaTurno = ({ turnos, onEditar, onBorrar, onVer }) => {
                   <Button variant="info" size="sm" className="m-1" onClick={() => onVer(t, index)}>
                     Ver
                   </Button>
-                  <Button variant="warning" size="sm" className="m-1" onClick={() => onEditar(t, index)}>
+                  <Button  style={{ backgroundColor: 'var(--ambar)', borderColor: 'var(--ambar)', color: 'black' }} size="sm" className="m-1" onClick={() => onEditar(t, index)}>
                     Editar
                   </Button>
-                  <Button variant="danger" size="sm" className="m-1"onClick={() => onBorrar(index)}>
+                  <Button  style={{ backgroundColor: 'var(--magenta)', borderColor: 'var(--magenta)', color: 'white' }} size="sm" className="m-1"onClick={() => onBorrar(index)}>
                     Borrar
                   </Button>
                 </td>
