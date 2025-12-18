@@ -34,10 +34,25 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
       setTurnos([]);
     }
   };
+ const cargarUsuarios = async () => {
+    try {
+      const respuesta = await obtenerUsuarios();
 
+      if (respuesta && respuesta.status === 200) {
+        const data = await respuesta.json();
+        setUsuarios(data);
+        console.log("Usuarios cargados:", data);
+      }
+    } catch (error) {
+      console.log("Error cargando usuarios:", error);
+    }
+  };
   useEffect(() => {
     cargarTurnos();
   }, []);
+   useEffect(() => {
+      cargarUsuarios();
+    }, []);
 
   // Ver turno
   const verTurno = (turno) => {
@@ -123,6 +138,8 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
   useEffect(() => {
     cargarProductos();
   }, []);
+
+ 
 
   const abrirCrearProducto = () => {
     setNuevoProducto({
