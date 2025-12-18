@@ -5,14 +5,22 @@ import TablaTurno from "../pages/turno/TablaTurno";
 import ModalTurno from "../pages/turno/ModalTurno";
 import ModalVerTurno from "../pages/turno/ModalVerTurno";
 import TablaUsuarios from "../Admin/users/TablaUsuarios";
+import "../../styles/sweetalert.css";
 import {
   obtenerProducto,
   crearProducto,
-  editarProducto as editarProductoService,
+  editarProductoService,
   borrarProductoService,
 } from "../../helpers/queries";
 const Administrador = ({ productosCreados, setProductosCreados }) => {
-  /* Para Turnos */
+
+  const swalCustomClass = {
+    popup: 'swal-popup-custom',
+    confirmButton: 'btn-swal-confirm',
+    cancelButton: 'btn-swal-cancel',
+    title: 'swal2-title',
+    htmlContainer: 'swal2-html-container'
+  };
 
   const [turnos, setTurnos] = useState([]);
 
@@ -56,16 +64,7 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
     const turno = turnos[indice];
     if (!turno || !turno._id) return;
 
-    const result = await Swal.fire({
-      title: "¿Seguro quieres borrar este turno?",
-      text: "¡No podrás revertir esta acción!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Sí, borrar",
-      cancelButtonText: "Cancelar",
-    });
+    const result = await Swal.fire({ title: "¿Borrar turno?", text: "No se puede revertir", icon: "warning", showCancelButton: true, confirmButtonText: "Borrar", cancelButtonText: "Cancelar", customClass: swalCustomClass, buttonsStyling: false });
 
     if (result.isConfirmed) {
       try {
@@ -78,17 +77,11 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
 
         if (!res.ok) throw new Error("Error al eliminar");
 
-        Swal.fire({
-          icon: "success",
-          title: "Turno borrado",
-          text: "El turno ha sido eliminado correctamente",
-          timer: 2000,
-          showConfirmButton: false,
-        });
+        Swal.fire({ title: "Borrado", text: "Turno eliminado", icon: "success", customClass: swalCustomClass, buttonsStyling: false });
 
-        cargarTurnos(); // Recargar la lista
+        cargarTurnos(); 
       } catch (error) {
-        Swal.fire("Error", "No se pudo eliminar el turno", "error");
+        Swal.fire({ title: "Error", text: "No se pudo borrar", icon: "error", customClass: swalCustomClass, buttonsStyling: false });
       }
     }
   };
@@ -111,15 +104,18 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
   });
    const [errors, setErrors] = useState({});
   const [editandoId, setEditandoId] = useState(null);
-  const cargarProductos = async () => {
+const cargarProductos = async () => {
     try {
-      const data = await obtenerProducto();
-      setProductosAPI(data);
+      const data = await obtenerProducto(); 
+      
+      if (Array.isArray(data)) {
+        setProductosAPI(data);
+      }
+      
     } catch (error) {
-      console.error(error);
+      console.error("Error al cargar productos:", error);
     }
   };
-
   useEffect(() => {
     cargarProductos();
   }, []);
@@ -228,10 +224,13 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
 
         Swal.fire({
           icon: "success",
-          title: "Producto editado",
-          text: "Cambios guardados en la base de datos",
+          title: editandoId ? "Producto editado" : "Producto creado",
           timer: 2000,
           showConfirmButton: false,
+          customClass: {
+            popup: 'swal-popup-custom',
+            title: 'swal2-title'
+          }
         });
       } else {
         await crearProducto(formData);
@@ -242,6 +241,10 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
           text: "Guardado exitosamente en Cloudinary y Mongo",
           timer: 2000,
           showConfirmButton: false,
+          customClass: {
+            popup: 'swal-popup-custom',
+            title: 'swal2-title'
+          }
         });
       }
 
@@ -263,22 +266,51 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
       text: "Se eliminará de la base de datos y la nube",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#d33",
       confirmButtonText: "Sí, borrar",
+      cancelButtonText: "Cancelar",
+      customClass: {
+        popup: 'swal-popup-custom',
+        confirmButton: 'btn-swal-confirm',
+        cancelButton: 'btn-swal-cancel',
+        title: 'swal2-title',
+        htmlContainer: 'swal2-html-container'
+      },
+      buttonsStyling: false 
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await borrarProductoService(id);
-          cargarProductos();
+          const respuesta = await borrarProductoService(id);
 
-          Swal.fire({
-            icon: "success",
-            title: "Producto borrado",
-            timer: 2000,
-            showConfirmButton: false,
-          });
+          if (respuesta.status === 200) {
+            cargarProductos(); 
+            
+            Swal.fire({
+              icon: "success",
+              title: "Producto borrado",
+              timer: 2000,
+              showConfirmButton: false,
+              customClass: {
+                popup: 'swal-popup-custom',
+                title: 'swal2-title'
+              }
+            });
+          } else {
+            throw new Error("No se pudo eliminar");
+          }
         } catch (error) {
-          Swal.fire("Error", "No se pudo eliminar", "error");
+          console.error(error);
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "No se pudo eliminar el producto. Intente nuevamente.",
+            customClass: {
+                popup: 'swal-popup-custom',
+                confirmButton: 'btn-swal-confirm', 
+                title: 'swal2-title',
+                htmlContainer: 'swal2-html-container'
+            },
+            buttonsStyling: false
+          });
         }
       }
     });
@@ -343,7 +375,7 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
                     Ver
                   </Button>
                   <Button
-                    variant="warning"
+                    style={{ backgroundColor: 'var(--ambar)', borderColor: 'var(--ambar)', color: 'black' }}
                     size="sm"
                     className="m-1"
                     onClick={() => editarProducto(producto)}
@@ -351,7 +383,7 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
                     Editar
                   </Button>
                   <Button
-                    variant="danger"
+                     style={{ backgroundColor: 'var(--magenta)', borderColor: 'var(--magenta)', color: 'white' }}
                     size="sm"
                     className="m-1"
                     onClick={() => borrarProducto(producto._id)}
