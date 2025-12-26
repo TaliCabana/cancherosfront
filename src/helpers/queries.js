@@ -1,3 +1,5 @@
+import Swal from "sweetalert2";
+
 const URL_PRODUCTOS = import.meta.env.VITE_API_URL 
   ? `${import.meta.env.VITE_API_URL}/products` 
   : "http://localhost:3001/api/products";
@@ -12,8 +14,51 @@ const getToken = () => {
   return usuario ? usuario.token : null;
 };
 
+
+const authFetch = async (url, options = {}) => {
+  const token = getToken();
+
+  if (!options.headers) {
+    options.headers = {};
+  }
+
+  if (token) {
+    options.headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  try {
+    const response = await fetch(url, options);
+
+    if (response.status === 401) {
+       await Swal.fire({
+        title: "Sesión Expirada",
+        text: "Tu credencial ha vencido por seguridad. Por favor, inicia sesión nuevamente.",
+        icon: "warning",
+        confirmButtonText: "Entendido",
+        customClass: {
+            popup: 'swal-popup-custom',
+            confirmButton: 'btn-swal-confirm',
+            title: 'swal2-title',
+            htmlContainer: 'swal2-html-container'
+        },
+        buttonsStyling: false
+      });
+      
+      sessionStorage.removeItem('usuarioKey');
+      
+      window.location.href = '/'; 
+      
+      return null; 
+    }
+
+    return response;
+  } catch (error) {
+    console.error("Error en la petición:", error);
+    throw error;
+  }
+};
 export const obtenerProducto = async () => {
-  const res = await fetch(API_URL);
+  const res = await fetch(URL_PRODUCTOS);
   if (!res.ok) throw new Error("Error al obtener productos");
   return res.json();
 };
@@ -21,7 +66,7 @@ export const obtenerProducto = async () => {
 export const crearProducto = async (formData) => {
   const token = getToken();
   try {
-    const res = await fetch(URL_PRODUCTOS, {
+    const res = await authFetch(URL_PRODUCTOS, {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${token}` 
@@ -36,7 +81,7 @@ export const crearProducto = async (formData) => {
 export const editarProductoService = async (id, formData) => {
   const token = getToken();
   try {
-    const res = await fetch(`${URL_PRODUCTOS}/${id}`, {
+    const res = await authFetch(`${URL_PRODUCTOS}/${id}`, {
       method: "PUT",
       headers: {
         "Authorization": `Bearer ${token}`
@@ -51,7 +96,7 @@ export const editarProductoService = async (id, formData) => {
 export const borrarProductoService = async (id) => {
   const token = getToken();
   try {
-    const res = await fetch(`${URL_PRODUCTOS}/${id}`, {
+    const res = await authFetch(`${URL_PRODUCTOS}/${id}`, {
       method: "DELETE",
       headers: {
         "Authorization": `Bearer ${token}`
@@ -95,8 +140,12 @@ export const registroAPI = async (usuario) => {
 
 export const obtenerUsuarios = async () => {
   const token = getToken();
+  if (!token) {
+      console.log("Esperando el token...");
+      return; 
+    }
   try {
-    const respuesta = await fetch(URL_USUARIOS, {
+    const respuesta = await authFetch(URL_USUARIOS, {
       headers: {
         "Authorization": `Bearer ${token}` 
       }
@@ -110,7 +159,7 @@ export const obtenerUsuarios = async () => {
 export const borrarUsuarioAPI = async (id) => {
   const token = getToken();
   try {
-    const respuesta = await fetch(`${URL_USUARIOS}/${id}`, {
+    const respuesta = await authFetch(`${URL_USUARIOS}/${id}`, {
       method: "DELETE",
       headers: {
         "Authorization": `Bearer ${token}`
@@ -124,7 +173,7 @@ export const borrarUsuarioAPI = async (id) => {
 export const editarUsuarioAPI = async (id, datos) => {
   const token = getToken();
   try {
-    const respuesta = await fetch(`${URL_USUARIOS}/${id}`, {
+    const respuesta = await authFetch(`${URL_USUARIOS}/${id}`, {
       method: "PUT",
       headers: { 
         "Content-Type": "application/json",
@@ -141,7 +190,7 @@ export const editarUsuarioAPI = async (id, datos) => {
 export const crearUsuarioAdmin = async (datos) => {
   const token = getToken();
   try {
-    const respuesta = await fetch(`${URL_USUARIOS}/registro`, {
+    const respuesta = await authFetch(`${URL_USUARIOS}/registro`, {
       method: "POST",
       headers: { 
         "Content-Type": "application/json",
