@@ -6,12 +6,14 @@ import ModalTurno from "../pages/turno/ModalTurno";
 import ModalVerTurno from "../pages/turno/ModalVerTurno";
 import TablaUsuarios from "../Admin/users/TablaUsuarios";
 import "../../styles/sweetalert.css";
+import "../../styles/modalVerProductos.css";
 import {
   obtenerProducto,
   crearProducto,
   editarProductoService,
   borrarProductoService,
 } from "../../helpers/queries";
+
 const Administrador = ({ productosCreados, setProductosCreados }) => {
 
   const swalCustomClass = {
@@ -584,11 +586,10 @@ const cargarProductos = async () => {
             </Form.Group>
 
             <Button
-              variant="primary"
-              className="mt-3"
+              className="mt-3 btn-guardar"
               onClick={guardarProducto}
             >
-              Guardar
+              Guardar cambios
             </Button>
           </Form>
         </Modal.Body>

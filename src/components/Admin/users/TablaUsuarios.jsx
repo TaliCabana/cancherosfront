@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Table, Button, Modal, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import "../../../styles/modalVerProductos.css";
 import "../../../styles/sweetalert.css";
 import { 
   obtenerUsuarios, 
@@ -261,8 +262,8 @@ const TablaUsuarios = () => {
               </Form.Select>
             </Form.Group>
 
-            <Button variant="primary" type="submit" className="w-100">
-              Guardar
+            <Button className="btn-guardar" type="submit">
+              Guardar cambios
             </Button>
           </Form>
         </Modal.Body>

@@ -288,11 +288,8 @@ const ModalTurno = ({ show, handleClose, turnoEditar, indiceEditar }) => {
           </Form.Group>
         </Form>
       </Modal.Body>
-      <Modal.Footer className="d-flex justify-content-center">
-        <Button variant="secondary" onClick={handleClose}>
-          Cancelar
-        </Button>
-        <Button variant="success" onClick={guardarTurno}>
+      <Modal.Footer>
+        <Button className="btn-guardar" onClick={guardarTurno}>
           {turnoEditar ? "Guardar cambios" : "Guardar turno"}
         </Button>
       </Modal.Footer>
