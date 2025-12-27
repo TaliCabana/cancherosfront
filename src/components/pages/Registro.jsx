@@ -7,7 +7,13 @@ import { registroAPI } from "../../helpers/queries";
 const Registro = ({ show, handleClose, abrirLogin, setUsuarioLogueado }) => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const navigate = useNavigate();
-
+ const swalCustomClass = {
+    popup: 'swal-popup-custom',
+    confirmButton: 'btn-swal-confirm',
+    cancelButton: 'btn-swal-cancel',
+    title: 'swal2-title',
+    htmlContainer: 'swal2-html-container'
+  };
   const onSubmit = async (data) => {
     const usuarioNuevo = {
       nombre: data.nombre,
@@ -40,7 +46,7 @@ const Registro = ({ show, handleClose, abrirLogin, setUsuarioLogueado }) => {
         title: `¡Bienvenido ${datosUsuario.nombre}!`,
         text: "Registro exitoso.",
         timer: 2000,
-        showConfirmButton: false
+        customClass: swalCustomClass, buttonsStyling: false
       });
 
       reset();
@@ -52,6 +58,7 @@ const Registro = ({ show, handleClose, abrirLogin, setUsuarioLogueado }) => {
         icon: "error",
         title: "Ocurrió un error",
         text: errorData.mensaje || "No se pudo crear la cuenta",
+         customClass: swalCustomClass, buttonsStyling: false
       });
     }
   };

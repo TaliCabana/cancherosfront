@@ -2,10 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import Swal from "sweetalert2";
 import "../../../styles/modalTurno.css";
-
+import "../../../styles/sweetalert.css";
 const ModalTurno = ({ show, handleClose, turnoEditar, indiceEditar }) => {
   const hoy = new Date().toISOString().split("T")[0];
-
+  const swalCustomClass = {
+    popup: "swal-popup-custom",
+    confirmButton: "btn-swal-confirm",
+    cancelButton: "btn-swal-cancel",
+    title: "swal2-title",
+    htmlContainer: "swal2-html-container",
+  };
   const [turno, setTurno] = useState({
     nombre: "",
     telefono: "",
@@ -110,7 +116,8 @@ const ModalTurno = ({ show, handleClose, turnoEditar, indiceEditar }) => {
         `,
           icon: "success",
           confirmButtonText: "Aceptar",
-          confirmButtonColor: "#198754",
+          customClass: swalCustomClass,
+          buttonsStyling: false
         });
       } else {
         const res = await fetch("http://localhost:3001/api/reservas", {
@@ -138,17 +145,20 @@ const ModalTurno = ({ show, handleClose, turnoEditar, indiceEditar }) => {
         `,
           icon: "success",
           confirmButtonText: "Aceptar",
-          confirmButtonColor: "#198754",
+          customClass: swalCustomClass,
+          buttonsStyling: false
         });
       }
 
       handleClose();
     } catch (error) {
       Swal.fire({
-        title: "Error",
+       title: "Error",
         text: error.message || "Hubo un problema al guardar el turno",
         icon: "error",
         confirmButtonText: "Aceptar",
+        customClass: swalCustomClass,
+        buttonsStyling: false
       });
     }
   };
@@ -278,11 +288,8 @@ const ModalTurno = ({ show, handleClose, turnoEditar, indiceEditar }) => {
           </Form.Group>
         </Form>
       </Modal.Body>
-      <Modal.Footer className="d-flex justify-content-center">
-        <Button variant="secondary" onClick={handleClose}>
-          Cancelar
-        </Button>
-        <Button variant="success" onClick={guardarTurno}>
+      <Modal.Footer>
+        <Button className="btn-guardar" onClick={guardarTurno}>
           {turnoEditar ? "Guardar cambios" : "Guardar turno"}
         </Button>
       </Modal.Footer>

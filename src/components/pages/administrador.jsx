@@ -5,14 +5,23 @@ import TablaTurno from "../pages/turno/TablaTurno";
 import ModalTurno from "../pages/turno/ModalTurno";
 import ModalVerTurno from "../pages/turno/ModalVerTurno";
 import TablaUsuarios from "../Admin/users/TablaUsuarios";
+import "../../styles/sweetalert.css";
+import "../../styles/modalVerProductos.css";
 import {
   obtenerProducto,
   crearProducto,
-  editarProducto as editarProductoService,
+  editarProductoService,
   borrarProductoService,
 } from "../../helpers/queries";
+
 const Administrador = ({ productosCreados, setProductosCreados }) => {
-  /* Para Turnos */
+  const swalCustomClass = {
+    popup: "swal-popup-custom",
+    confirmButton: "btn-swal-confirm",
+    cancelButton: "btn-swal-cancel",
+    title: "swal2-title",
+    htmlContainer: "swal2-html-container",
+  };
 
   const [turnos, setTurnos] = useState([]);
 
@@ -34,9 +43,24 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
       setTurnos([]);
     }
   };
+  const cargarUsuarios = async () => {
+    try {
+      const respuesta = await obtenerUsuarios();
 
+      if (respuesta && respuesta.status === 200) {
+        const data = await respuesta.json();
+        setUsuarios(data);
+        console.log("Usuarios cargados:", data);
+      }
+    } catch (error) {
+      console.log("Error cargando usuarios:", error);
+    }
+  };
   useEffect(() => {
     cargarTurnos();
+  }, []);
+  useEffect(() => {
+    cargarUsuarios();
   }, []);
 
   // Ver turno
@@ -57,14 +81,14 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
     if (!turno || !turno._id) return;
 
     const result = await Swal.fire({
-      title: "¿Seguro quieres borrar este turno?",
-      text: "¡No podrás revertir esta acción!",
+      title: "¿Borrar turno?",
+      text: "No se puede revertir",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Sí, borrar",
+      confirmButtonText: "Borrar",
       cancelButtonText: "Cancelar",
+      customClass: swalCustomClass,
+      buttonsStyling: false,
     });
 
     if (result.isConfirmed) {
@@ -79,16 +103,22 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
         if (!res.ok) throw new Error("Error al eliminar");
 
         Swal.fire({
+          title: "Borrado",
+          text: "Turno eliminado",
           icon: "success",
-          title: "Turno borrado",
-          text: "El turno ha sido eliminado correctamente",
-          timer: 2000,
-          showConfirmButton: false,
+          customClass: swalCustomClass,
+          buttonsStyling: false,
         });
 
-        cargarTurnos(); // Recargar la lista
+        cargarTurnos();
       } catch (error) {
-        Swal.fire("Error", "No se pudo eliminar el turno", "error");
+        Swal.fire({
+          title: "Error",
+          text: "No se pudo borrar",
+          icon: "error",
+          customClass: swalCustomClass,
+          buttonsStyling: false,
+        });
       }
     }
   };
@@ -109,17 +139,19 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
     talles: "",
     categoria: "ellas",
   });
-   const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({});
   const [editandoId, setEditandoId] = useState(null);
   const cargarProductos = async () => {
     try {
       const data = await obtenerProducto();
-      setProductosAPI(data);
+
+      if (Array.isArray(data)) {
+        setProductosAPI(data);
+      }
     } catch (error) {
-      console.error(error);
+      console.error("Error al cargar productos:", error);
     }
   };
-
   useEffect(() => {
     cargarProductos();
   }, []);
@@ -178,10 +210,7 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
     // Validar Precio
     if (!nuevoProducto.precio) {
       nuevosErrores.precio = "El precio es obligatorio.";
-    } else if (
-     
-      (nuevoProducto.precio) < 0
-    ) {
+    } else if (nuevoProducto.precio < 0) {
       nuevosErrores.precio = "El precio debe ser un número positivo.";
     }
 
@@ -228,10 +257,13 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
 
         Swal.fire({
           icon: "success",
-          title: "Producto editado",
-          text: "Cambios guardados en la base de datos",
+          title: editandoId ? "Producto editado" : "Producto creado",
           timer: 2000,
           showConfirmButton: false,
+          customClass: {
+            popup: "swal-popup-custom",
+            title: "swal2-title",
+          },
         });
       } else {
         await crearProducto(formData);
@@ -242,6 +274,10 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
           text: "Guardado exitosamente en Cloudinary y Mongo",
           timer: 2000,
           showConfirmButton: false,
+          customClass: {
+            popup: "swal-popup-custom",
+            title: "swal2-title",
+          },
         });
       }
 
@@ -263,22 +299,51 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
       text: "Se eliminará de la base de datos y la nube",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#d33",
       confirmButtonText: "Sí, borrar",
+      cancelButtonText: "Cancelar",
+      customClass: {
+        popup: "swal-popup-custom",
+        confirmButton: "btn-swal-confirm",
+        cancelButton: "btn-swal-cancel",
+        title: "swal2-title",
+        htmlContainer: "swal2-html-container",
+      },
+      buttonsStyling: false,
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await borrarProductoService(id);
-          cargarProductos();
+          const respuesta = await borrarProductoService(id);
 
-          Swal.fire({
-            icon: "success",
-            title: "Producto borrado",
-            timer: 2000,
-            showConfirmButton: false,
-          });
+          if (respuesta.status === 200) {
+            cargarProductos();
+
+            Swal.fire({
+              icon: "success",
+              title: "Producto borrado",
+              timer: 2000,
+              showConfirmButton: false,
+              customClass: {
+                popup: "swal-popup-custom",
+                title: "swal2-title",
+              },
+            });
+          } else {
+            throw new Error("No se pudo eliminar");
+          }
         } catch (error) {
-          Swal.fire("Error", "No se pudo eliminar", "error");
+          console.error(error);
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "No se pudo eliminar el producto. Intente nuevamente.",
+            customClass: {
+              popup: "swal-popup-custom",
+              confirmButton: "btn-swal-confirm",
+              title: "swal2-title",
+              htmlContainer: "swal2-html-container",
+            },
+            buttonsStyling: false,
+          });
         }
       }
     });
@@ -286,13 +351,29 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
 
   return (
     <div className="container my-5">
+      {/* TURNOS */}
+      <div className="container py-4">
+        <div className="d-flex justify-content-between align-items-center mb-4">
+          <h2 className="text-center flex-grow-1">Administrador de Turnos</h2>
+          <Button className="btn-verde" onClick={() => setShowModalTurno(true)}>
+            + Crear Turno
+          </Button>
+        </div>
+        <TablaTurno
+          turnos={turnos}
+          onVer={verTurno}
+          onEditar={(turno) => editarTurno(turno)}
+          onBorrar={borrarTurno}
+        />
+      </div>
+
+      {/* PRODUCTOS */}
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2 className="text-center flex-grow-1">Administrador de Productos</h2>
         <Button className="btn-verde" onClick={abrirCrearProducto}>
           + Crear Producto
         </Button>
       </div>
-
       <Table striped bordered hover responsive>
         <thead>
           <tr className="text-center">
@@ -343,7 +424,11 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
                     Ver
                   </Button>
                   <Button
-                    variant="warning"
+                    style={{
+                      backgroundColor: "var(--ambar)",
+                      borderColor: "var(--ambar)",
+                      color: "black",
+                    }}
                     size="sm"
                     className="m-1"
                     onClick={() => editarProducto(producto)}
@@ -351,7 +436,11 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
                     Editar
                   </Button>
                   <Button
-                    variant="danger"
+                    style={{
+                      backgroundColor: "var(--magenta)",
+                      borderColor: "var(--magenta)",
+                      color: "white",
+                    }}
                     size="sm"
                     className="m-1"
                     onClick={() => borrarProducto(producto._id)}
@@ -365,25 +454,11 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
         </tbody>
       </Table>
 
-      {/* TURNOS */}
-      <div className="container py-4">
-        <div className="d-flex justify-content-between align-items-center mb-4">
-          <h2 className="text-center flex-grow-1">Administrador de Turnos</h2>
-          <Button className="btn-verde" onClick={() => setShowModalTurno(true)}>
-            + Crear Turno
-          </Button>
-        </div>
-        <TablaTurno
-          turnos={turnos}
-          onVer={verTurno}
-          onEditar={(turno) => editarTurno(turno)}
-          onBorrar={borrarTurno}
-        />
-      </div>
-      
+      {/* USUARIOS */}
       <div className="mb-5">
         <TablaUsuarios />
       </div>
+
       {/* Modal Editar Turno */}
       <ModalTurno
         show={showModalTurno}
@@ -469,7 +544,7 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
                 onChange={(e) =>
                   setNuevoProducto({ ...nuevoProducto, talles: e.target.value })
                 }
-                 isInvalid={!!errors.talles}
+                isInvalid={!!errors.talles}
               >
                 <option value="--">--</option>
                 <option value="XS">XS</option>
@@ -478,7 +553,9 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
                 <option value="L">L</option>
                 <option value="XL">XL</option>
               </Form.Select>
-               <Form.Control.Feedback type="invalid">{errors.talles}</Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">
+                {errors.talles}
+              </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-2">
@@ -524,22 +601,20 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
                     categoria: e.target.value,
                   })
                 }
-                 isInvalid={!!errors.categoria}
+                isInvalid={!!errors.categoria}
               >
                 <option value="ellas">Ellas</option>
                 <option value="hombre">Hombre</option>
                 <option value="niños">Niños</option>
                 <option value="accesorios">Accesorios</option>
               </Form.Select>
-               <Form.Control.Feedback type="invalid">{errors.categoria}</Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">
+                {errors.categoria}
+              </Form.Control.Feedback>
             </Form.Group>
 
-            <Button
-              variant="primary"
-              className="mt-3"
-              onClick={guardarProducto}
-            >
-              Guardar
+            <Button className="mt-3 btn-guardar" onClick={guardarProducto}>
+              Guardar cambios
             </Button>
           </Form>
         </Modal.Body>

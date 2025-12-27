@@ -7,7 +7,13 @@ import { useNavigate } from "react-router-dom";
 const Login = ({ show, handleClose, abrirRegistro, setUsuarioLogueado }) => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
  const navigate = useNavigate();
-
+ const swalCustomClass = {
+    popup: 'swal-popup-custom',
+    confirmButton: 'btn-swal-confirm',
+    cancelButton: 'btn-swal-cancel',
+    title: 'swal2-title',
+    htmlContainer: 'swal2-html-container'
+  };
   const onSubmit = async (data) => {
     const respuesta = await loginAPI(data);
 // usuario administrador: admin@cancheros.com
@@ -32,7 +38,7 @@ const Login = ({ show, handleClose, abrirRegistro, setUsuarioLogueado }) => {
         title: `Bienvenido ${datos.nombre}`,
         text: "Has iniciado sesión correctamente",
         timer: 1500,
-        showConfirmButton: false
+         customClass: swalCustomClass, buttonsStyling: false
       });
       
       reset();
