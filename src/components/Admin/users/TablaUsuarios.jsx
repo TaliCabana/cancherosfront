@@ -138,7 +138,7 @@ const TablaUsuarios = () => {
         </Button>
       </div>
       
-      <Table striped bordered hover responsive variant="dark">
+      <Table striped bordered hover responsive variant="dark" className="text-center">
         <thead>
           <tr>
             <th>Nombre</th>
