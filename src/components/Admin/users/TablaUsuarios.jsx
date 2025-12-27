@@ -152,12 +152,12 @@ const TablaUsuarios = () => {
             <tr key={user._id}>
               <td>{user.nombre}</td>
               <td>{user.email}</td>
-              <td>
+              <td className="text-center">
                 <span className={`badge ${user.rol === "admin" ? "bg-warning text-dark" : "bg-primary"}`}>
                   {user.rol}
                 </span>
               </td>
-              <td>
+              <td className="d-flex justify-content-evenly">
                 <Button  style={{ backgroundColor: 'var(--ambar)', borderColor: 'var(--ambar)', color: 'black' }} size="sm" className="me-2" onClick={() => handleEditar(user)}>
                   Editar
                 </Button>

@@ -32,7 +32,7 @@ const TablaTurno = ({ turnos, onEditar, onBorrar, onVer }) => {
                 <td>{t.horario}</td>
                 <td>{t.cancha}</td>
                 <td>{t.estado}</td>
-                <td>
+                <td className="d-flex justify-content-evenly">
                   <Button variant="info" size="sm" className="m-1" onClick={() => onVer(t, index)}>
                     Ver
                   </Button>
