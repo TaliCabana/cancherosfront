@@ -1,4 +1,3 @@
-import React from "react";
 import { Table, Button } from "react-bootstrap";
 
 const TablaTurno = ({ turnos, onEditar, onBorrar, onVer }) => {
