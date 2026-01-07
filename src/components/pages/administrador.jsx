@@ -12,7 +12,7 @@ import {
   editarProductoService,
   borrarProductoService,
 } from "../../helpers/queries";
-const Administrador = ({ productosCreados, setProductosCreados }) => {
+const Administrador = () => {
 
   const swalCustomClass = {
     popup: 'swal-popup-custom',
@@ -25,7 +25,7 @@ const Administrador = ({ productosCreados, setProductosCreados }) => {
   const [turnos, setTurnos] = useState([]);
 
   const [turnoEditar, setTurnoEditar] = useState(null);
-  const [indiceEditar, setIndiceEditar] = useState(null);
+  const [indiceEditar] = useState(null);
   const [showModalTurno, setShowModalTurno] = useState(false);
   const [showVerModalTurno, setShowVerModalTurno] = useState(false);
   const [turnoVer, setTurnoVer] = useState(null);
