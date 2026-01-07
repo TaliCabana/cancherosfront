@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 
@@ -24,9 +23,6 @@ const Error404 = () => {
         el correcto.
       </p>
       
-{/*       <Link to="/" className="btn-inicio">
-        IR A INICIO
-      </Link> */}
             <div className="justify-content-center mb-4">
         <Button as={Link} to="/" className="boton-volver-inicio">
           <span><i className="bi bi-arrow-bar-left"> Volver al Inicio </i></span>

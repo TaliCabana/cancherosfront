@@ -57,7 +57,7 @@ Todo dentro de una experiencia unificada.
  # 1. Abre tu terminal
   
  # 2.  Clonar el repositorio
-git clone: https://github.com/TaliCabana/cancherosfront.git
+git clone: https://github.com/TaliCabana/cancherosfrontend.git
 
 # 3. Ingresar al proyecto
 cd cancherosfront
