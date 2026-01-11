@@ -13,13 +13,12 @@ import {
   borrarProductoService,
 } from "../../helpers/queries";
 const Administrador = () => {
-
   const swalCustomClass = {
-    popup: 'swal-popup-custom',
-    confirmButton: 'btn-swal-confirm',
-    cancelButton: 'btn-swal-cancel',
-    title: 'swal2-title',
-    htmlContainer: 'swal2-html-container'
+    popup: "swal-popup-custom",
+    confirmButton: "btn-swal-confirm",
+    cancelButton: "btn-swal-cancel",
+    title: "swal2-title",
+    htmlContainer: "swal2-html-container",
   };
 
   const [turnos, setTurnos] = useState([]);
@@ -42,7 +41,7 @@ const Administrador = () => {
       setTurnos([]);
     }
   };
- const cargarUsuarios = async () => {
+  const cargarUsuarios = async () => {
     try {
       const respuesta = await obtenerUsuarios();
 
@@ -58,9 +57,9 @@ const Administrador = () => {
   useEffect(() => {
     cargarTurnos();
   }, []);
-   useEffect(() => {
-      cargarUsuarios();
-    }, []);
+  useEffect(() => {
+    cargarUsuarios();
+  }, []);
 
   // Ver turno
   const verTurno = (turno) => {
@@ -79,7 +78,16 @@ const Administrador = () => {
     const turno = turnos[indice];
     if (!turno || !turno._id) return;
 
-    const result = await Swal.fire({ title: "¿Borrar turno?", text: "No se puede revertir", icon: "warning", showCancelButton: true, confirmButtonText: "Borrar", cancelButtonText: "Cancelar", customClass: swalCustomClass, buttonsStyling: false });
+    const result = await Swal.fire({
+      title: "¿Borrar turno?",
+      text: "No se puede revertir",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Borrar",
+      cancelButtonText: "Cancelar",
+      customClass: swalCustomClass,
+      buttonsStyling: false,
+    });
 
     if (result.isConfirmed) {
       try {
@@ -92,11 +100,23 @@ const Administrador = () => {
 
         if (!res.ok) throw new Error("Error al eliminar");
 
-        Swal.fire({ title: "Borrado", text: "Turno eliminado", icon: "success", customClass: swalCustomClass, buttonsStyling: false });
+        Swal.fire({
+          title: "Borrado",
+          text: "Turno eliminado",
+          icon: "success",
+          customClass: swalCustomClass,
+          buttonsStyling: false,
+        });
 
-        cargarTurnos(); 
+        cargarTurnos();
       } catch (error) {
-        Swal.fire({ title: "Error", text: "No se pudo borrar", icon: "error", customClass: swalCustomClass, buttonsStyling: false });
+        Swal.fire({
+          title: "Error",
+          text: "No se pudo borrar",
+          icon: "error",
+          customClass: swalCustomClass,
+          buttonsStyling: false,
+        });
       }
     }
   };
@@ -117,16 +137,15 @@ const Administrador = () => {
     talles: "",
     categoria: "ellas",
   });
-   const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({});
   const [editandoId, setEditandoId] = useState(null);
-const cargarProductos = async () => {
+  const cargarProductos = async () => {
     try {
-      const data = await obtenerProducto(); 
-      
+      const data = await obtenerProducto();
+
       if (Array.isArray(data)) {
         setProductosAPI(data);
       }
-      
     } catch (error) {
       console.error("Error al cargar productos:", error);
     }
@@ -134,8 +153,6 @@ const cargarProductos = async () => {
   useEffect(() => {
     cargarProductos();
   }, []);
-
- 
 
   const abrirCrearProducto = () => {
     setNuevoProducto({
@@ -191,10 +208,7 @@ const cargarProductos = async () => {
     // Validar Precio
     if (!nuevoProducto.precio) {
       nuevosErrores.precio = "El precio es obligatorio.";
-    } else if (
-     
-      (nuevoProducto.precio) < 0
-    ) {
+    } else if (nuevoProducto.precio < 0) {
       nuevosErrores.precio = "El precio debe ser un número positivo.";
     }
 
@@ -236,43 +250,45 @@ const cargarProductos = async () => {
         formData.append("imagen", archivoImagen);
       }
 
-      if (editandoId) {
-        await editarProductoService(editandoId, formData);
+      let respuesta;
 
+      if (editandoId) {
+        respuesta = await editarProductoService(editandoId, formData);
+      } else {
+        respuesta = await crearProducto(formData);
+      }
+
+      if (respuesta && (respuesta.status === 201 || respuesta.status === 200)) {
         Swal.fire({
           icon: "success",
           title: editandoId ? "Producto editado" : "Producto creado",
           timer: 2000,
           showConfirmButton: false,
-          customClass: {
-            popup: 'swal-popup-custom',
-            title: 'swal2-title'
-          }
+          customClass: { popup: "swal-popup-custom", title: "swal2-title" },
         });
+
+        cargarProductos();
+        setShowModal(false);
       } else {
-        await crearProducto(formData);
+        const datosError = await respuesta.json();
+
+        const mensajeError = datosError.errores
+          ? datosError.errores.map((err) => err.msg).join("<br>")
+          : datosError.mensaje || "Error al guardar el producto";
 
         Swal.fire({
-          icon: "success",
-          title: "Producto creado",
-          text: "Guardado exitosamente en Cloudinary y Mongo",
-          timer: 2000,
-          showConfirmButton: false,
-          customClass: {
-            popup: 'swal-popup-custom',
-            title: 'swal2-title'
-          }
+          icon: "error",
+          title: "No se pudo guardar",
+          html: mensajeError,
+          customClass: { popup: "swal-popup-custom", title: "swal2-title" },
         });
       }
-
-      cargarProductos();
-      setShowModal(false);
     } catch (error) {
       console.error(error);
       Swal.fire({
         icon: "error",
-        title: "Error",
-        text: "Hubo un problema al guardar el producto",
+        title: "Error de conexión",
+        text: "No se pudo comunicar con el servidor.",
       });
     }
   };
@@ -286,30 +302,30 @@ const cargarProductos = async () => {
       confirmButtonText: "Sí, borrar",
       cancelButtonText: "Cancelar",
       customClass: {
-        popup: 'swal-popup-custom',
-        confirmButton: 'btn-swal-confirm',
-        cancelButton: 'btn-swal-cancel',
-        title: 'swal2-title',
-        htmlContainer: 'swal2-html-container'
+        popup: "swal-popup-custom",
+        confirmButton: "btn-swal-confirm",
+        cancelButton: "btn-swal-cancel",
+        title: "swal2-title",
+        htmlContainer: "swal2-html-container",
       },
-      buttonsStyling: false 
+      buttonsStyling: false,
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
           const respuesta = await borrarProductoService(id);
 
           if (respuesta.status === 200) {
-            cargarProductos(); 
-            
+            cargarProductos();
+
             Swal.fire({
               icon: "success",
               title: "Producto borrado",
               timer: 2000,
               showConfirmButton: false,
               customClass: {
-                popup: 'swal-popup-custom',
-                title: 'swal2-title'
-              }
+                popup: "swal-popup-custom",
+                title: "swal2-title",
+              },
             });
           } else {
             throw new Error("No se pudo eliminar");
@@ -321,12 +337,12 @@ const cargarProductos = async () => {
             title: "Error",
             text: "No se pudo eliminar el producto. Intente nuevamente.",
             customClass: {
-                popup: 'swal-popup-custom',
-                confirmButton: 'btn-swal-confirm', 
-                title: 'swal2-title',
-                htmlContainer: 'swal2-html-container'
+              popup: "swal-popup-custom",
+              confirmButton: "btn-swal-confirm",
+              title: "swal2-title",
+              htmlContainer: "swal2-html-container",
             },
-            buttonsStyling: false
+            buttonsStyling: false,
           });
         }
       }
@@ -392,7 +408,11 @@ const cargarProductos = async () => {
                     Ver
                   </Button>
                   <Button
-                    style={{ backgroundColor: 'var(--ambar)', borderColor: 'var(--ambar)', color: 'black' }}
+                    style={{
+                      backgroundColor: "var(--ambar)",
+                      borderColor: "var(--ambar)",
+                      color: "black",
+                    }}
                     size="sm"
                     className="m-1"
                     onClick={() => editarProducto(producto)}
@@ -400,7 +420,11 @@ const cargarProductos = async () => {
                     Editar
                   </Button>
                   <Button
-                     style={{ backgroundColor: 'var(--magenta)', borderColor: 'var(--magenta)', color: 'white' }}
+                    style={{
+                      backgroundColor: "var(--magenta)",
+                      borderColor: "var(--magenta)",
+                      color: "white",
+                    }}
                     size="sm"
                     className="m-1"
                     onClick={() => borrarProducto(producto._id)}
@@ -429,7 +453,7 @@ const cargarProductos = async () => {
           onBorrar={borrarTurno}
         />
       </div>
-      
+
       <div className="mb-5">
         <TablaUsuarios />
       </div>
@@ -518,7 +542,7 @@ const cargarProductos = async () => {
                 onChange={(e) =>
                   setNuevoProducto({ ...nuevoProducto, talles: e.target.value })
                 }
-                 isInvalid={!!errors.talles}
+                isInvalid={!!errors.talles}
               >
                 <option value="--">--</option>
                 <option value="XS">XS</option>
@@ -527,7 +551,9 @@ const cargarProductos = async () => {
                 <option value="L">L</option>
                 <option value="XL">XL</option>
               </Form.Select>
-               <Form.Control.Feedback type="invalid">{errors.talles}</Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">
+                {errors.talles}
+              </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-2">
@@ -573,14 +599,16 @@ const cargarProductos = async () => {
                     categoria: e.target.value,
                   })
                 }
-                 isInvalid={!!errors.categoria}
+                isInvalid={!!errors.categoria}
               >
                 <option value="ellas">Ellas</option>
                 <option value="hombre">Hombre</option>
                 <option value="niños">Niños</option>
                 <option value="accesorios">Accesorios</option>
               </Form.Select>
-               <Form.Control.Feedback type="invalid">{errors.categoria}</Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">
+                {errors.categoria}
+              </Form.Control.Feedback>
             </Form.Group>
 
             <Button
