@@ -75,7 +75,7 @@ export const crearProducto = async (formData) => {
     });
     return res;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 export const editarProductoService = async (id, formData) => {
@@ -90,7 +90,7 @@ export const editarProductoService = async (id, formData) => {
     });
     return res;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 export const borrarProductoService = async (id) => {
@@ -104,7 +104,7 @@ export const borrarProductoService = async (id) => {
     });
     return res;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -119,7 +119,7 @@ export const loginAPI = async (usuario) => {
     });
     return respuesta;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -134,14 +134,13 @@ export const registroAPI = async (usuario) => {
     });
     return respuesta;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
 export const obtenerUsuarios = async () => {
   const token = getToken();
   if (!token) {
-      console.log("Esperando el token...");
       return; 
     }
   try {
@@ -152,7 +151,7 @@ export const obtenerUsuarios = async () => {
     });
     return respuesta;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -167,7 +166,7 @@ export const borrarUsuarioAPI = async (id) => {
     });
     return respuesta;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 export const editarUsuarioAPI = async (id, datos) => {
@@ -183,7 +182,7 @@ export const editarUsuarioAPI = async (id, datos) => {
     });
     return respuesta;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -200,6 +199,6 @@ export const crearUsuarioAdmin = async (datos) => {
     });
     return respuesta;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
