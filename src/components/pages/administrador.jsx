@@ -49,10 +49,9 @@ const Administrador = () => {
       if (respuesta && respuesta.status === 200) {
         const data = await respuesta.json();
         setUsuarios(data);
-        console.log("Usuarios cargados:", data);
       }
     } catch (error) {
-      console.log("Error cargando usuarios:", error);
+      console.error("Error cargando usuarios:", error);
     }
   };
   useEffect(() => {
