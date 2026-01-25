@@ -200,8 +200,8 @@ const Administrador = () => {
     // Validar Nombre
     if (!nuevoProducto.nombre.trim()) {
       nuevosErrores.nombre = "El nombre es obligatorio.";
-    } else if (nuevoProducto.nombre.length < 3) {
-      nuevosErrores.nombre = "El nombre debe tener al menos 3 caracteres.";
+    } else if (nuevoProducto.nombre.length < 5) {
+      nuevosErrores.nombre = "El nombre debe tener al menos 5 caracteres.";
     } else if (nuevoProducto.nombre.length > 50) {
       nuevosErrores.nombre = "El nombre no puede exceder los 50 caracteres.";
     }
@@ -219,8 +219,8 @@ const Administrador = () => {
       nuevosErrores.descripcion = "La descripción es obligatoria.";
     } else if (nuevoProducto.descripcion.length < 10) {
       nuevosErrores.descripcion = "La descripción debe ser más detallada, debe tener al menos 10 caracteres.";
-    } else if (nuevoProducto.descripcion.length > 200) {
-      nuevosErrores.descripcion = "La descripción es demasiado larga, no puede exceder los 200 caracteres.";
+    } else if (nuevoProducto.descripcion.length > 50) {
+      nuevosErrores.descripcion = "La descripción es demasiado larga, no puede exceder los 50 caracteres.";
     }
 
     // Validar Talles
