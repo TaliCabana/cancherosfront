@@ -202,23 +202,30 @@ const Administrador = () => {
       nuevosErrores.nombre = "El nombre es obligatorio.";
     } else if (nuevoProducto.nombre.length < 3) {
       nuevosErrores.nombre = "El nombre debe tener al menos 3 caracteres.";
+    } else if (nuevoProducto.nombre.length > 50) {
+      nuevosErrores.nombre = "El nombre no puede exceder los 50 caracteres.";
     }
 
     // Validar Precio
-    if (!nuevoProducto.precio) {
+    const precioNumerico = parseFloat(nuevoProducto.precio.toString().replace("$", ""));
+    if (!nuevoProducto.precio || nuevoProducto.precio === "$") {
       nuevosErrores.precio = "El precio es obligatorio.";
-    } else if (nuevoProducto.precio < 0) {
-      nuevosErrores.precio = "El precio debe ser un número positivo.";
+    } else if (isNaN(precioNumerico) || precioNumerico < 0) {
+      nuevosErrores.precio = "El precio debe ser mayor a $0.";
     }
 
     // Validar Descripción
     if (!nuevoProducto.descripcion.trim()) {
       nuevosErrores.descripcion = "La descripción es obligatoria.";
+    } else if (nuevoProducto.descripcion.length < 10) {
+      nuevosErrores.descripcion = "La descripción debe ser más detallada, debe tener al menos 10 caracteres.";
+    } else if (nuevoProducto.descripcion.length > 200) {
+      nuevosErrores.descripcion = "La descripción es demasiado larga, no puede exceder los 200 caracteres.";
     }
 
     // Validar Talles
-    if (!nuevoProducto.talles.trim()) {
-      nuevosErrores.talles = "Debes ingresar al menos un talle.";
+    if (!nuevoProducto.talles || nuevoProducto.talles === "--") {
+      nuevosErrores.talles = "Debes seleccionar un talle válido.";
     }
 
     // Validar Categoría
@@ -484,7 +491,10 @@ const Administrador = () => {
               <Form.Label>Nombre</Form.Label>
               <Form.Control
                 type="text"
+                placeholder="¿Qué artículo vas a sumar?"
                 value={nuevoProducto.nombre}
+                minLength={5}
+                maxLength={30}
                 onChange={(e) =>
                   setNuevoProducto({ ...nuevoProducto, nombre: e.target.value })
                 }
@@ -500,13 +510,10 @@ const Administrador = () => {
               <Form.Control
                 type="text"
                 value={nuevoProducto.precio}
+                placeholder="$ Precio del artículo"
                 onChange={(e) => {
-                  let valor = e.target.value;
-
-                  if (!valor.includes("$")) {
-                    valor = "$" + valor.replace(/\$/g, "");
-                  }
-
+                  let valor = e.target.value.replace(/[^-0-9$]/g, "");
+                  if (!valor.includes("$")) valor = "$" + valor;
                   setNuevoProducto({ ...nuevoProducto, precio: valor });
                 }}
                 isInvalid={!!errors.precio}
@@ -519,8 +526,10 @@ const Administrador = () => {
             <Form.Group className="mb-2">
               <Form.Label>Descripción</Form.Label>
               <Form.Control
-                type="text"
+                as="textarea"
+                rows={2}
                 value={nuevoProducto.descripcion}
+                maxLength={50}
                 onChange={(e) =>
                   setNuevoProducto({
                     ...nuevoProducto,
@@ -611,8 +620,7 @@ const Administrador = () => {
             </Form.Group>
 
             <Button
-              variant="primary"
-              className="mt-3"
+              className="mt-3, btn-verde"
               onClick={guardarProducto}
             >
               Guardar
