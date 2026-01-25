@@ -493,7 +493,8 @@ const Administrador = () => {
                 type="text"
                 placeholder="¿Qué artículo vas a sumar?"
                 value={nuevoProducto.nombre}
-                maxLength={50}
+                minLength={5}
+                maxLength={30}
                 onChange={(e) =>
                   setNuevoProducto({ ...nuevoProducto, nombre: e.target.value })
                 }
@@ -526,9 +527,9 @@ const Administrador = () => {
               <Form.Label>Descripción</Form.Label>
               <Form.Control
                 as="textarea"
-                rows={3}
+                rows={2}
                 value={nuevoProducto.descripcion}
-                maxLength={200}
+                maxLength={50}
                 onChange={(e) =>
                   setNuevoProducto({
                     ...nuevoProducto,
@@ -619,8 +620,7 @@ const Administrador = () => {
             </Form.Group>
 
             <Button
-              variant="primary"
-              className="mt-3"
+              className="mt-3, btn-verde"
               onClick={guardarProducto}
             >
               Guardar
