@@ -131,7 +131,7 @@ const TablaUsuarios = () => {
     <div className="p-3 border border-secondary rounded">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h4 className="text-white m-0">Gestión de Usuarios</h4>
-        <Button variant="success" onClick={handleCrear}>
+        <Button className="btn-verde" onClick={handleCrear}>
           + Nuevo Usuario
         </Button>
       </div>
