@@ -212,6 +212,8 @@ const Administrador = () => {
       nuevosErrores.precio = "El precio es obligatorio.";
     } else if (isNaN(precioNumerico) || precioNumerico < 0) {
       nuevosErrores.precio = "El precio debe ser mayor a $0.";
+    } else if (precioNumerico > 1000000) {
+      nuevosErrores.precio = "El precio no puede exceder los $1.000.000";
     }
 
     // Validar Descripción
