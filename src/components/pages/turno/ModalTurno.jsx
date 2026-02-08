@@ -74,6 +74,9 @@ const ModalTurno = ({ show, handleClose, turnoEditar, indiceEditar }) => {
     return Object.keys(nuevosErrores).length === 0;
   };
 
+  const URL_RESERVAS = import.meta.env.VITE_API_URL
+    ? `${import.meta.env.VITE_API_URL}/reservas`
+    : "http://localhost:3001/api/reservas";
   const guardarTurno = async () => {
     if (!validar()) return;
 
@@ -89,7 +92,7 @@ const ModalTurno = ({ show, handleClose, turnoEditar, indiceEditar }) => {
 
       if (turnoEditar) {
         const id = turnoEditar._id;
-        const res = await fetch(`http://localhost:3001/api/reservas/${id}`, {
+        const res = await fetch(`${URL_RESERVAS}/${id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
@@ -117,10 +120,10 @@ const ModalTurno = ({ show, handleClose, turnoEditar, indiceEditar }) => {
           icon: "success",
           confirmButtonText: "Aceptar",
           customClass: swalCustomClass,
-          buttonsStyling: false
+          buttonsStyling: false,
         });
       } else {
-        const res = await fetch("http://localhost:3001/api/reservas", {
+        const res = await fetch(URL_RESERVAS, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
@@ -146,19 +149,19 @@ const ModalTurno = ({ show, handleClose, turnoEditar, indiceEditar }) => {
           icon: "success",
           confirmButtonText: "Aceptar",
           customClass: swalCustomClass,
-          buttonsStyling: false
+          buttonsStyling: false,
         });
       }
 
       handleClose();
     } catch (error) {
       Swal.fire({
-       title: "Error",
+        title: "Error",
         text: error.message || "Hubo un problema al guardar el turno",
         icon: "error",
         confirmButtonText: "Aceptar",
         customClass: swalCustomClass,
-        buttonsStyling: false
+        buttonsStyling: false,
       });
     }
   };

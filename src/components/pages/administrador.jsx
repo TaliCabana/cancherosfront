@@ -30,9 +30,13 @@ const Administrador = () => {
   const [turnoVer, setTurnoVer] = useState(null);
 
   // Cargar turnos desde el backend
+  const URL_RESERVAS = import.meta.env.VITE_API_URL 
+  ? `${import.meta.env.VITE_API_URL}/reservas` 
+  : "http://localhost:3001/api/reservas";
+  
   const cargarTurnos = async () => {
     try {
-      const res = await fetch("http://localhost:3001/api/reservas");
+      const res = await fetch(URL_RESERVAS);
       if (!res.ok) throw new Error("Error al cargar turnos");
       const data = await res.json();
       setTurnos(data);
@@ -91,7 +95,7 @@ const Administrador = () => {
     if (result.isConfirmed) {
       try {
         const res = await fetch(
-          `http://localhost:3001/api/reservas/${turno._id}`,
+          `${URL_RESERVAS}/${turno._id}`,
           {
             method: "DELETE",
           }
