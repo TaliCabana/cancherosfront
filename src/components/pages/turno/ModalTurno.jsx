@@ -23,6 +23,9 @@ const ModalTurno = ({ show, handleClose, turnoEditar, indiceEditar }) => {
 
   const [errores, setErrores] = useState({});
 
+  const usuario = JSON.parse(sessionStorage.getItem("usuarioKey"));
+  const token = usuario?.token;
+
   useEffect(() => {
     if (show && turnoEditar) {
       setTurno({
@@ -94,7 +97,10 @@ const ModalTurno = ({ show, handleClose, turnoEditar, indiceEditar }) => {
         const id = turnoEditar._id;
         const res = await fetch(`${URL_RESERVAS}/${id}`, {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
           body: JSON.stringify(payload),
         });
 
@@ -125,7 +131,10 @@ const ModalTurno = ({ show, handleClose, turnoEditar, indiceEditar }) => {
       } else {
         const res = await fetch(URL_RESERVAS, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
           body: JSON.stringify(payload),
         });
 

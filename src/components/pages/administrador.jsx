@@ -29,14 +29,20 @@ const Administrador = () => {
   const [showVerModalTurno, setShowVerModalTurno] = useState(false);
   const [turnoVer, setTurnoVer] = useState(null);
 
+  const usuario = JSON.parse(sessionStorage.getItem("usuarioKey"));
+  const token = usuario?.token;
   // Cargar turnos desde el backend
-  const URL_RESERVAS = import.meta.env.VITE_API_URL 
-  ? `${import.meta.env.VITE_API_URL}/reservas` 
-  : "http://localhost:3001/api/reservas";
-  
+  const URL_RESERVAS = import.meta.env.VITE_API_URL
+    ? `${import.meta.env.VITE_API_URL}/reservas`
+    : "http://localhost:3001/api/reservas";
+
   const cargarTurnos = async () => {
     try {
-      const res = await fetch(URL_RESERVAS);
+      const res = await fetch(URL_RESERVAS, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (!res.ok) throw new Error("Error al cargar turnos");
       const data = await res.json();
       setTurnos(data);
@@ -94,12 +100,12 @@ const Administrador = () => {
 
     if (result.isConfirmed) {
       try {
-        const res = await fetch(
-          `${URL_RESERVAS}/${turno._id}`,
-          {
-            method: "DELETE",
-          }
-        );
+        const res = await fetch(`${URL_RESERVAS}/${turno._id}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         if (!res.ok) throw new Error("Error al eliminar");
 
@@ -211,7 +217,9 @@ const Administrador = () => {
     }
 
     // Validar Precio
-    const precioNumerico = parseFloat(nuevoProducto.precio.toString().replace("$", ""));
+    const precioNumerico = parseFloat(
+      nuevoProducto.precio.toString().replace("$", ""),
+    );
     if (!nuevoProducto.precio || nuevoProducto.precio === "$") {
       nuevosErrores.precio = "El precio es obligatorio.";
     } else if (isNaN(precioNumerico) || precioNumerico < 0) {
@@ -224,9 +232,11 @@ const Administrador = () => {
     if (!nuevoProducto.descripcion.trim()) {
       nuevosErrores.descripcion = "La descripción es obligatoria.";
     } else if (nuevoProducto.descripcion.length < 10) {
-      nuevosErrores.descripcion = "La descripción debe ser más detallada, debe tener al menos 10 caracteres.";
+      nuevosErrores.descripcion =
+        "La descripción debe ser más detallada, debe tener al menos 10 caracteres.";
     } else if (nuevoProducto.descripcion.length > 50) {
-      nuevosErrores.descripcion = "La descripción es demasiado larga, no puede exceder los 50 caracteres.";
+      nuevosErrores.descripcion =
+        "La descripción es demasiado larga, no puede exceder los 50 caracteres.";
     }
 
     // Validar Talles
@@ -253,7 +263,7 @@ const Administrador = () => {
       formData.append("descripcion", nuevoProducto.descripcion);
       formData.append(
         "precio",
-        nuevoProducto.precio.toString().replace("$", "")
+        nuevoProducto.precio.toString().replace("$", ""),
       );
       formData.append("talles", nuevoProducto.talles);
       formData.append("categoria", nuevoProducto.categoria);
@@ -625,10 +635,7 @@ const Administrador = () => {
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Button
-              className="mt-3, btn-verde"
-              onClick={guardarProducto}
-            >
+            <Button className="mt-3, btn-verde" onClick={guardarProducto}>
               Guardar
             </Button>
           </Form>
