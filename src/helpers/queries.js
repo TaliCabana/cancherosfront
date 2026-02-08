@@ -2,11 +2,11 @@ import Swal from "sweetalert2";
 
 const URL_PRODUCTOS = import.meta.env.VITE_API_URL 
   ? `${import.meta.env.VITE_API_URL}/products` 
-  : "http://localhost:3001/api/products";
+  : "https://cancherosback-hskh.vercel.app/api/products";
 
 const URL_USUARIOS = import.meta.env.VITE_API_URL 
   ? `${import.meta.env.VITE_API_URL}/usuarios` 
-  : "http://localhost:3001/api/usuarios";
+  : "https://cancherosback-hskh.vercel.app/api/usuarios";
 
 
 const getToken = () => {
