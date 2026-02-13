@@ -27,7 +27,7 @@ const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <i class="bi bi-geo-alt"></i>
+                  <i className="bi bi-geo-alt"></i>
                 </a>
               </div>
             </div>
