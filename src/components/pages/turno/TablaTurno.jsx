@@ -26,9 +26,9 @@ const TablaTurno = ({ turnos, onEditar, onBorrar, onVer }) => {
           ) : (
             turnos.map((t, index) => (
               <tr key={t._id || index}>
-                <td>{t.usuario?.nombre || "Sin nombre"}</td>
+                <td>{t.nombreCliente || "Sin nombre"}</td>
                 <td>{new Date(t.fecha).toLocaleDateString()}</td>
-                <td>{new Date(t.fecha).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
+                <td>{t.horario}</td>
                 <td>{t.cancha}</td>
                 <td>{t.estado}</td>
                 <td>

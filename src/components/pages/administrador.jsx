@@ -12,7 +12,10 @@ import {
   editarProductoService,
   borrarProductoService,
 } from "../../helpers/queries";
+import { obtenerUsuarios } from "../../helpers/queries";
+
 const Administrador = () => {
+  const [usuarios, setUsuarios] = useState([]);
   const swalCustomClass = {
     popup: "swal-popup-custom",
     confirmButton: "btn-swal-confirm",
@@ -20,6 +23,7 @@ const Administrador = () => {
     title: "swal2-title",
     htmlContainer: "swal2-html-container",
   };
+  
 
   const [turnos, setTurnos] = useState([]);
 
