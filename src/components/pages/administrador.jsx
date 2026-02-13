@@ -12,7 +12,10 @@ import {
   editarProductoService,
   borrarProductoService,
 } from "../../helpers/queries";
+import { obtenerUsuarios } from "../../helpers/queries";
+
 const Administrador = () => {
+  const [usuarios, setUsuarios] = useState([]);
   const swalCustomClass = {
     popup: "swal-popup-custom",
     confirmButton: "btn-swal-confirm",
@@ -20,6 +23,7 @@ const Administrador = () => {
     title: "swal2-title",
     htmlContainer: "swal2-html-container",
   };
+  
 
   const [turnos, setTurnos] = useState([]);
 
@@ -37,6 +41,7 @@ const Administrador = () => {
     : "http://localhost:3001/api/reservas";
 
   const cargarTurnos = async () => {
+    if (!token) return
     try {
       const res = await fetch(URL_RESERVAS, {
         headers: {
@@ -64,8 +69,10 @@ const Administrador = () => {
     }
   };
   useEffect(() => {
-    cargarTurnos();
-  }, []);
+    if (token) {
+      cargarTurnos();
+    }
+  }, [token]);
   useEffect(() => {
     cargarUsuarios();
   }, []);

@@ -29,7 +29,7 @@ const ModalTurno = ({ show, handleClose, turnoEditar, indiceEditar }) => {
   useEffect(() => {
     if (show && turnoEditar) {
       setTurno({
-        nombre: turnoEditar.usuario || "",
+        nombre: turnoEditar.nombreCliente || "",
         telefono: turnoEditar.telefono || "",
         fecha: turnoEditar.fecha || "",
         hora: turnoEditar.horario || "",
@@ -85,7 +85,7 @@ const ModalTurno = ({ show, handleClose, turnoEditar, indiceEditar }) => {
 
     try {
       const payload = {
-        usuario: turno.nombre.trim(),
+        nombreCliente: turno.nombre.trim(),
         telefono: turno.telefono.trim(),
         cancha: turno.cancha,
         fecha: turno.fecha,

@@ -27,6 +27,7 @@ const authFetch = async (url, options = {}) => {
   }
 
   try {
+    console.log("TOKEN ENVIADO:", token);
     const response = await fetch(url, options);
 
     if (response.status === 401) {
