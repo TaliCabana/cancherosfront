@@ -41,6 +41,7 @@ const Administrador = () => {
     : "http://localhost:3001/api/reservas";
 
   const cargarTurnos = async () => {
+    if (!token) return
     try {
       const res = await fetch(URL_RESERVAS, {
         headers: {
@@ -68,8 +69,10 @@ const Administrador = () => {
     }
   };
   useEffect(() => {
-    cargarTurnos();
-  }, []);
+    if (token) {
+      cargarTurnos();
+    }
+  }, [token]);
   useEffect(() => {
     cargarUsuarios();
   }, []);
