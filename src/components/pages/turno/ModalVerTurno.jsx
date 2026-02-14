@@ -9,7 +9,7 @@ const ModalVerTurno = ({ show, handleClose, turno }) => {
       <Modal.Body>
         {turno && (
           <div>
-            <p><strong>Nombre:</strong> {turno.usuario?.nombreCliente}</p>
+            <p><strong>Nombre:</strong> {turno.nombreCliente}</p>
             <p><strong>Teléfono:</strong> {turno.telefono}</p>
             <p><strong>Fecha:</strong> {turno.fecha}</p>
             <p><strong>Hora:</strong> {turno.horario}</p>
