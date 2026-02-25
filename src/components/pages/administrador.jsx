@@ -38,7 +38,7 @@ const Administrador = () => {
   // Cargar turnos desde el backend
   const URL_RESERVAS = import.meta.env.VITE_API_URL
     ? `${import.meta.env.VITE_API_URL}/reservas`
-    : "http://localhost:3001/api/reservas";
+    : "https://cancherosback-hskh.vercel.app/api/reservas";
 
   const cargarTurnos = async () => {
     if (!token) return
